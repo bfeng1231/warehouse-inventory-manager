@@ -16,7 +16,7 @@ public class ContainerDAOImpl implements ContainerDAO {
 
 	@Override
 	public List<Container> findAll() {
-		String sql = "SELECT * FROM container";
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id)";
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
 
 			Statement stmt = conn.createStatement();
@@ -25,7 +25,9 @@ public class ContainerDAOImpl implements ContainerDAO {
 			
 			// Traverse ResultSet
 			while(rs.next()) {
-				Container container = new Container(rs.getInt("container_id"), rs.getInt("transport_id"), rs.getInt("warehouse_id"), rs.getString("location"));
+				Container container = new Container(rs.getInt("container_id"), rs.getInt("transport_id"), 
+						rs.getInt("warehouse_id"), rs.getString("location"), rs.getString("transport_name"),
+						rs.getInt("transport_size"));
 				containers.add(container);
 			}
 			
@@ -42,14 +44,15 @@ public class ContainerDAOImpl implements ContainerDAO {
 
 	@Override
 	public Container findByParam(int id) {
-		String sql = "SELECT * FROM container WHERE container_id = " + id;
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE container_id = " + id;
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
 			
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next())
-				return new Container(rs.getInt("container_id"), rs.getInt("transport_id"), rs.getInt("warehouse_id"), rs.getString("location"));
-			
+				return new Container(rs.getInt("container_id"), rs.getInt("transport_id"), 
+						rs.getInt("warehouse_id"), rs.getString("location"), rs.getString("transport_name"),
+						rs.getInt("transport_size"));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -58,14 +61,16 @@ public class ContainerDAOImpl implements ContainerDAO {
 		
 	@Override
 	public Container findByParam(String location) {
-		String sql = "SELECT * FROM container WHERE location = ?";
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE location = ?";
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, location);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
-				return new Container(rs.getInt("container_id"), rs.getInt("transport_id"), rs.getInt("warehouse_id"), rs.getString("location"));
+				return new Container(rs.getInt("container_id"), rs.getInt("transport_id"), 
+						rs.getInt("warehouse_id"), rs.getString("location"), rs.getString("transport_name"),
+						rs.getInt("transport_size"));
 			
 		} catch (Exception e) {
 			// TODO: handle exception
