@@ -3,6 +3,7 @@ package com.skillstorm.servlets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +16,6 @@ import com.skillstorm.DAO.ItemDAO;
 import com.skillstorm.DAO.ItemDAOImpl;
 import com.skillstorm.models.Item;
 import com.skillstorm.models.Message;
-import com.skillstorm.models.Sort;
 import com.skillstorm.services.URLParserService;
 
 @WebServlet(urlPatterns = "/items/*")
@@ -47,14 +47,12 @@ public class ItemServlet extends HttpServlet{
 				resp.getWriter().print(mapper.writeValueAsString(new Message("Not a valid url")));	
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			
-			InputStream reqBody = req.getInputStream();
-			Sort sortBy = mapper.readValue(reqBody, Sort.class);
-			System.out.println(sortBy.toString());
-			
+						
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
+			Map<String, String[]> params = req.getParameterMap();
+			
 			int id = Integer.parseInt(param[1]);
-			List<Item> items = dao.findAll(id, sortBy.getSort(), sortBy.getDirection());
+			List<Item> items = dao.findAll(id, params.get("sort")[0], params.get("order")[0]);
 			resp.setStatus(200);
 			resp.setContentType("application/JSON");
 			resp.getWriter().print(mapper.writeValueAsString(items));
