@@ -1,0 +1,45 @@
+<div *ngIf="!edit ; else showEdit">
+    <table *ngIf="items.length != 0">
+        <thead>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let elem of items">
+                <td>{{ elem.item_id }}</td>
+                <td>{{ elem.name }}</td>
+                <td>{{ elem.size }} ft<sup>3</sup></td>
+                <td>{{ elem.units }}</td>
+                <td>{{ elem.datetime | date: 'short' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #showEdit>
+    <div>
+        <table *ngIf="items.length != 0">
+            <thead>
+                <th></th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Amount</th>
+                <th>Date</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let elem of items">
+                    <td><input type="checkbox" (change)="itemChecklistHandler(elem.item_id)"></td>
+                    <td>{{ elem.item_id }}</td>
+                    <td>{{ elem.name }}</td>
+                    <td>{{ elem.size }} ft<sup>3</sup></td>
+                    <td>{{ elem.units }}</td>
+                    <td>{{ elem.datetime | date: 'short' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-template>

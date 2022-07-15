@@ -15,12 +15,12 @@ import com.skillstorm.models.Container;
 public class ContainerDAOImpl implements ContainerDAO {
 
 	@Override
-	public List<Container> findAll() {
-		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id)";
+	public List<Container> findAll(String sort, String direction) {
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) ";
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
-
+			String sortBy = "ORDER BY " + sort + " " + direction;
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);			
+			ResultSet rs = stmt.executeQuery(sql + sortBy);
 			LinkedList<Container> containers = new LinkedList<>();
 			
 			// Traverse ResultSet

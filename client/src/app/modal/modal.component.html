@@ -1,0 +1,18 @@
+<div>
+    <div>
+        <app-container-form *ngIf="data.type == 'form'" (submitEvent)="addContainer($event)"></app-container-form>
+
+        <div name="modal" *ngIf="data.type == 'delete'">
+            <div>Close</div>
+            <div>Delete container #{{ data.id }}</div>
+            <div>Are you sure you want to delete this container?</div>
+            <div>All items inside will also be deleted.</div>
+            <div>
+                <button (click)="deleteContainer(data.id)">Confirm</button>
+                <button (click)="closeModal()">Cancel</button>
+            </div>
+        </div>
+
+        <button (click)="getType()">data</button>
+    </div>
+</div>

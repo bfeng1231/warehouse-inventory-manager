@@ -1,0 +1,14 @@
+<div>
+    <div *ngIf="error">{{ message }}</div>
+    <form (ngSubmit)="onSubmit(containerFormData)">
+        <label for="transport">Transport Type</label>
+        <select id="transport" name="transport" [(ngModel)]="containerFormData.transport">
+            <option [ngValue]=1>Van</option>
+            <option [ngValue]=2>Box Truck</option>
+            <option [ngValue]=3>Freight Truck</option>
+        </select>
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" [(ngModel)]="containerFormData.location">
+        <input type="submit" value="Submit">
+    </form>
+</div>

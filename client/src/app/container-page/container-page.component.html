@@ -1,0 +1,35 @@
+<div>
+    <div *ngFor="let elem of containers">
+        <header>{{elem.id}}</header>
+        <section class="containerInfo">
+            <div>
+                {{ elem.transport_name }}
+            </div>
+            <div>
+                {{ elem.transport_size }} ft<sup>3</sup>
+            </div>
+            <div>
+                {{ elem.location }}
+            </div>
+        </section>
+        <main>
+            <app-item-list [id]="elem.id"></app-item-list>
+        </main>
+        <footer>
+            <button (click)="displayModal({type: 'delete', id: elem.id})">Delete</button>
+            <button><a [routerLink]="[elem.id]">View</a></button>
+        </footer>
+    </div>
+
+    <div (click)="displayModal({type: 'form'})">
+        <div>+</div>
+        <div>Add Container</div>
+    </div>
+
+    <app-modal *ngIf="showModal.state" [data]="showModal.data" 
+        (deleteEvent)="deleteContainer($event)" 
+        (closeEvent)="displayModal({})"
+        (sumbitEvent)="addContainer($event)"></app-modal>
+
+    
+</div>

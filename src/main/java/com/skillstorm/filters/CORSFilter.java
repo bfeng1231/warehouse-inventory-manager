@@ -33,7 +33,8 @@ public class CORSFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 		res.addHeader("Access-Control-Allow-Origin", "*"); // Allows any domain to make a request
 		res.addHeader("Access-Control-Allow-Methods", "*"); // Allows all HTTP methods
-		res.addHeader("Access-Control-Allow-Headers", ""); // Allows all types of headers
+		res.addHeader("Access-Control-Allow-Headers", "*"); // Allows all types of headers
+		//res.addHeader("Access-Control-Request-Headers", "");
 		chain.doFilter(request, response);
 	}
 

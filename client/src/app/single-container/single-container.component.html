@@ -1,0 +1,29 @@
+<div>
+    <nav>
+        <button><a [routerLink]="['']">Go back</a></button>
+    </nav>
+
+    <header>
+        <div># {{ container.id }}</div>
+    </header>  
+    <section>
+        <div>{{ container.transport_name }}</div>
+        <div>{{ container.transport_size }} ft<sup>3</sup></div>
+        <div>{{ container.location }}</div>
+    </section>
+
+    <app-item-list [id]="id" [edit]="edit"></app-item-list>
+
+    <footer>
+        <div *ngIf="!edit; else editMode">
+            <button (click)="showEdit()">Edit</button>
+        </div>
+        <ng-template #editMode>
+            <div>
+                <button>Delete</button>
+                <button>Edit Container</button>
+                <button (click)="showEdit()">Done</button>
+            </div>
+        </ng-template>
+    </footer>
+</div>

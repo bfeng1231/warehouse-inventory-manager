@@ -3,6 +3,7 @@ package com.skillstorm.servlets;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -36,6 +37,7 @@ public class ContainerServlet extends HttpServlet{
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
 			
 			// Try to convert to int and search by id
+			System.out.println("Search by id");
 			int id = Integer.parseInt(param[1]);
 			Container container = dao.findByParam(id);
 		
@@ -50,6 +52,7 @@ public class ContainerServlet extends HttpServlet{
 		} catch (NumberFormatException e) {
 			
 			// Got a string instead, search by location
+			System.out.println("Search by location");
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
 			Container container = dao.findByParam(param[1]);
 			
@@ -62,7 +65,9 @@ public class ContainerServlet extends HttpServlet{
 				resp.getWriter().print(mapper.writeValueAsString(container));
 			}
 		} catch (Exception e) {
-			List<Container> containers = dao.findAll();
+			Map<String, String[]> params = req.getParameterMap();
+			
+			List<Container> containers = dao.findAll(params.get("sort")[0], params.get("order")[0]);
 			resp.setContentType("application/JSON");
 			resp.getWriter().print(mapper.writeValueAsString(containers));
 		}
