@@ -9,6 +9,7 @@ import { SingleContainerComponent } from './single-container/single-container.co
 import { ContainerFormComponent } from './forms/container-form/container-form.component';
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '@angular/forms';
+import { ItemFormComponent } from './forms/item-form/item-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     ItemListComponent,
     SingleContainerComponent,
     ContainerFormComponent,
-    ModalComponent
+    ModalComponent,
+    ItemFormComponent
   ],
   imports: [
     BrowserModule,

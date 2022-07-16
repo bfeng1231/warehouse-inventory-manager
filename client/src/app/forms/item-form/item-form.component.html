@@ -1,0 +1,13 @@
+<div>
+    <div>
+        <form (ngSubmit)="onSubmit(itemFormData)">
+            <label for="name">Item Name</label>
+            <input type="text" id="name" [(ngModel)]="itemFormData.name">
+            <label>Size</label>
+            <input type="text" id="size" [(ngModel)]="itemFormData.size"><span>Cu ft.</span>
+            <label>Amount</label>
+            <input type="text" id="amount" [(ngModel)]="itemFormData.amount">
+            <input type="submit" id="submit">           
+        </form>
+    </div>
+</div>
