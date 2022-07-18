@@ -37,7 +37,6 @@ public class ContainerServlet extends HttpServlet{
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
 			
 			// Try to convert to int and search by id
-			System.out.println("Search by id");
 			int id = Integer.parseInt(param[1]);
 			Container container = dao.findByParam(id);
 		
@@ -52,7 +51,6 @@ public class ContainerServlet extends HttpServlet{
 		} catch (NumberFormatException e) {
 			
 			// Got a string instead, search by location
-			System.out.println("Search by location");
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
 			Container container = dao.findByParam(param[1]);
 			

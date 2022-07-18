@@ -16,6 +16,7 @@ import com.skillstorm.DAO.ItemDAO;
 import com.skillstorm.DAO.ItemDAOImpl;
 import com.skillstorm.models.Item;
 import com.skillstorm.models.Message;
+import com.skillstorm.models.RequestObj;
 import com.skillstorm.services.URLParserService;
 
 @WebServlet(urlPatterns = "/items/*")
@@ -101,16 +102,26 @@ public class ItemServlet extends HttpServlet{
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			String[] param = urlService.extractParamFromURL(req.getPathInfo());
+			//String[] param = urlService.extractParamFromURL(req.getPathInfo());
 			
-			int id = Integer.parseInt(param[1]);
-			if (dao.delete(id)) {
+			InputStream reqBody = req.getInputStream();
+			RequestObj ids = mapper.readValue(reqBody, RequestObj.class);
+			
+			if (dao.deleteMany(ids.getIds())) {
 				resp.setStatus(200);
-				resp.getWriter().print(mapper.writeValueAsString(new Message("Sucessfully deleted item with id " + id)));
+				resp.getWriter().print(mapper.writeValueAsString(new Message("Sucessfully deleted items")));
 			} else {
 				resp.setStatus(400);
-				resp.getWriter().print(mapper.writeValueAsString(new Message("Unable to delete item")));
+				resp.getWriter().print(mapper.writeValueAsString(new Message("Unable to delete items")));
 			}
+			//int id = Integer.parseInt(param[1]);
+//			if (dao.delete(id)) {
+//				resp.setStatus(200);
+//				resp.getWriter().print(mapper.writeValueAsString(new Message("Sucessfully deleted item with id " + id)));
+//			} else {
+//				resp.setStatus(400);
+//				resp.getWriter().print(mapper.writeValueAsString(new Message("Unable to delete item")));
+//			}
 
 		} catch (Exception e) {
 			

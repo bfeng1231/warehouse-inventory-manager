@@ -27,4 +27,12 @@ export class ItemApiService {
         return this.http.post(environment.apiUrl + "items/", body)
     }
 
+    delete(data: Array<number>): Observable<any> {
+        let options = {
+            body: {
+                ids: data
+            }
+        }
+        return this.http.delete(environment.apiUrl + "items/", options)
+    }
 }

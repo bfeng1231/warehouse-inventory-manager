@@ -187,7 +187,7 @@ public class ItemDAOImpl implements ItemDAO{
 	}
 
 	@Override
-	public void deleteMany(int[] ids) {
+	public boolean deleteMany(List<Integer> ids) {
 		String sql = "DELETE FROM item WHERE item_id = ?";
 		
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
@@ -204,17 +204,18 @@ public class ItemDAOImpl implements ItemDAO{
 				}
 				else {
 					conn.rollback();
+					return false;
 				}
 			}
 			
 			conn.commit();
-
+			return true;
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
+		return false;
 	}
 
 	@Override

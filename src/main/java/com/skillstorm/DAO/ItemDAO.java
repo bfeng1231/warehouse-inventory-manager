@@ -20,5 +20,5 @@ public interface ItemDAO {
 	
 	// Delete methods
 	public boolean delete(int id);
-	public void deleteMany(int[] ids);
+	public boolean deleteMany(List<Integer> list);
 }
