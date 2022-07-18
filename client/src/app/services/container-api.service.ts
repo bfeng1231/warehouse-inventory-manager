@@ -35,4 +35,14 @@ export class ContainerApiService {
         }
         return this.http.post(environment.apiUrl + "containers/", body)
     }
+
+    update(data: any, id: number): Observable<any> {
+        let body = {
+            id,
+            transport_id: data.transport,
+            warehouse_id: 1,
+            location: data.location
+        }
+        return this.http.put(environment.apiUrl + "containers/", body)
+    }
 }

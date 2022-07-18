@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'app-container-form',
@@ -11,10 +11,16 @@ export class ContainerFormComponent implements OnInit {
     message: string = ''
     containerFormData: any = {transport: 0, location: ''}
     @Output() submitEvent = new EventEmitter<any>()
+    @Input() data: any = {}
 
     constructor() { }
 
     ngOnInit(): void {
+        if (this.data.hasOwnProperty("container"))
+            this.containerFormData = {
+                transport: this.data.container.transport_id, 
+                location: this.data.container.location
+            }
     }
 
     onSubmit(container: any) {

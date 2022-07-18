@@ -10,7 +10,8 @@ export class ModalComponent implements OnInit {
     @Input() data: any = ''
     @Output() deleteEvent = new EventEmitter<number>()
     @Output() closeEvent = new EventEmitter()
-    @Output() sumbitEvent = new EventEmitter<any>()
+    @Output() sumbitContainerEvent = new EventEmitter<any>()
+    @Output() sumbitItemEvent = new EventEmitter<any>()
 
     constructor() { }
 
@@ -29,7 +30,16 @@ export class ModalComponent implements OnInit {
         this.deleteEvent.emit(id)
     }
 
-    addData(formData: any) {
-        this.sumbitEvent.emit(formData)
+    addData(formData: any): void {
+        switch(this.data.type) {
+            case 'form':
+                this.sumbitContainerEvent.emit(formData)
+                return
+            case 'itemForm':
+                this.sumbitItemEvent.emit(formData)
+                return
+            default:
+                return
+        }
     }
 }

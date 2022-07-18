@@ -69,4 +69,8 @@ export class SingleContainerComponent implements OnInit {
     deleteItems(): void {
         this.itemService.delete(this.itemChecklist).subscribe(resp => console.log(resp))
     }
+
+    editContainer(data: any): void {
+        this.service.update(data, this.id).subscribe(resp => console.log(resp))
+    }
 }

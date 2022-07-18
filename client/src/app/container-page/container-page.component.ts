@@ -29,19 +29,25 @@ export class ContainerPageComponent implements OnInit {
     }
     
     deleteContainer(id: number): void {
-        // this.service.delete(id).subscribe(resp => {
-        //     console.log(resp)           
-        // })
+        this.service.delete(id).subscribe(resp => {
+            console.log(resp)           
+        })
         let index = this.containers.findIndex(elem => elem.id == id)
         this.containers.splice(index, 1)
         this.showModal = {state: !this.showModal.state, data: {}}
     }
 
     addContainer(formData: any) {
-        this.service.save(formData).subscribe(resp => {
-            console.log(resp)
-            this.ngOnInit()
-        })
+
+        this.service.save(formData)
+            .subscribe({
+                next: resp => {
+                        console.log(resp) 
+                        this.ngOnInit
+                    },
+                error: err => {window.alert("A container already exists on that location")}
+            })
+        this.showModal = {state: false, data: {}}
     }
 
 }
