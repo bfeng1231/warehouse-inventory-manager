@@ -12,8 +12,10 @@ export class ItemListComponent implements OnInit {
     items: Array<any> = []
     @Input() id: number = 0
     @Input() edit: boolean = false
-    @Input() set item(data : string) {
-        this.items.push(data)
+    @Input() set item(data: any) {
+        //this.items.push(data)
+        this.items.push({...data, datetime: Date.now()})
+            
     }
     
     itemChecklist: Array<any> = []

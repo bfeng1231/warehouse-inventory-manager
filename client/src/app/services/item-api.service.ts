@@ -22,4 +22,9 @@ export class ItemApiService {
         return this.http.get(environment.apiUrl + "items/" + id + "/total")
     }
     
+    save(data: any, id: number): Observable<any> {
+        let body = {name: data.name, size: data.size, units: data.amount, container_id: id}
+        return this.http.post(environment.apiUrl + "items/", body)
+    }
+
 }

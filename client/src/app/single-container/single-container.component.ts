@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContainerApiService } from '../services/container-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from "@angular/router";
+import { ItemApiService } from '../services/item-api.service';
 
 @Component({
     selector: 'app-single-container',
@@ -11,15 +12,17 @@ import { Router } from "@angular/router";
 export class SingleContainerComponent implements OnInit {
 
     service: ContainerApiService
+    itemService: ItemApiService
     id: any
     container: any = {}
     edit: boolean = false
     showModal: any = {state: false, id: 0, data: {}}
     itemEntry: any = {}
+    currentSpace: number = 0
 
-    constructor(service: ContainerApiService, private route: ActivatedRoute, private router: Router) { 
+    constructor(service: ContainerApiService, itemService: ItemApiService, private route: ActivatedRoute, private router: Router) { 
         this.service = service
-        //
+        this.itemService = itemService
     }
 
     ngOnInit(): void {
@@ -29,7 +32,7 @@ export class SingleContainerComponent implements OnInit {
                 next: resp => {this.container = resp},
                 error: err => {this.router.navigate([''])}
             })
-        
+        this.itemService.getTotalSpaceById(this.id).subscribe(resp => this.currentSpace = resp)
     }
 
     showEdit(): void {
@@ -44,7 +47,16 @@ export class SingleContainerComponent implements OnInit {
 
     addItem(data: any): void {
         console.log(data)
-        this.itemEntry = data
+        if ((data.size * data.amount) + this.currentSpace > this.container.transport_size)
+            return window.alert("Unable to add item due to insufficant amount of space")
+        else {
+            this.currentSpace += (data.size * data.amount)
+            this.itemService.save(data, this.id).subscribe(resp => {
+                console.log(resp)
+                this.itemEntry = resp
+            })
+        }
+        
     }
 
 }
