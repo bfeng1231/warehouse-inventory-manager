@@ -12,7 +12,7 @@
         <div>{{ container.location }}</div>
     </section>
 
-    <app-item-list [id]="id" [edit]="edit" [item]="itemEntry"></app-item-list>
+    <app-item-list [id]="id" [edit]="edit" [item]="itemEntry" (onChangeEvent)="updateEditList($event)" [itemChecklist]="itemChecklist"></app-item-list>
     <section>
         <button (click)="displayModal({type: 'itemForm', id})">Add Item</button>
     </section>
@@ -22,7 +22,7 @@
         </div>
         <ng-template #editMode>
             <div>
-                <button>Delete</button>
+                <button (click)="deleteItems()">Delete Items</button>
                 <button>Edit Container</button>
                 <button (click)="showEdit()">Done</button>
             </div>

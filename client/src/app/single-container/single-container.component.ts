@@ -19,6 +19,7 @@ export class SingleContainerComponent implements OnInit {
     showModal: any = {state: false, id: 0, data: {}}
     itemEntry: any = {}
     currentSpace: number = 0
+    itemChecklist: Array<number> = []
 
     constructor(service: ContainerApiService, itemService: ItemApiService, private route: ActivatedRoute, private router: Router) { 
         this.service = service
@@ -37,6 +38,7 @@ export class SingleContainerComponent implements OnInit {
 
     showEdit(): void {
         this.edit = !this.edit
+        this.itemChecklist = []
     }
 
     displayModal(data: any): void {
@@ -59,4 +61,12 @@ export class SingleContainerComponent implements OnInit {
         
     }
 
+    updateEditList(data: Array<number>): void {
+        this.itemChecklist = data
+        console.log(this.itemChecklist)
+    }
+
+    deleteItems(): void {
+        this.itemService.delete(this.itemChecklist).subscribe(resp => console.log(resp))
+    }
 }

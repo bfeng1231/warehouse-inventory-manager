@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ItemApiService } from '../services/item-api.service';
 
 @Component({
@@ -17,8 +17,8 @@ export class ItemListComponent implements OnInit {
         this.items.push({...data, datetime: Date.now()})
             
     }
-    
-    itemChecklist: Array<any> = []
+    @Output() onChangeEvent = new EventEmitter<Array<number>>()
+    @Input() itemChecklist: Array<number> = []
 
     constructor(service: ItemApiService) { 
         this.service = service
@@ -36,6 +36,7 @@ export class ItemListComponent implements OnInit {
         let index = this.itemChecklist.indexOf(id)
         index == -1 ? this.itemChecklist.push(id) : this.itemChecklist.splice(index, 1)
         console.log(this.itemChecklist)
+        this.onChangeEvent.emit(this.itemChecklist)
     }
 
 
