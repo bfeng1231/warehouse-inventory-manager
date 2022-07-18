@@ -12,6 +12,10 @@ export class ItemListComponent implements OnInit {
     items: Array<any> = []
     @Input() id: number = 0
     @Input() edit: boolean = false
+    @Input() set item(data : string) {
+        this.items.push(data)
+    }
+    
     itemChecklist: Array<any> = []
 
     constructor(service: ItemApiService) { 
@@ -31,5 +35,6 @@ export class ItemListComponent implements OnInit {
         index == -1 ? this.itemChecklist.push(id) : this.itemChecklist.splice(index, 1)
         console.log(this.itemChecklist)
     }
+
 
 }

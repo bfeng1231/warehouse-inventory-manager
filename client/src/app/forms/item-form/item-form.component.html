@@ -1,13 +1,16 @@
 <div>
     <div>
+        <div *ngIf="message.length != 0">
+            {{ message }}
+        </div>
         <form (ngSubmit)="onSubmit(itemFormData)">
             <label for="name">Item Name</label>
-            <input type="text" id="name" [(ngModel)]="itemFormData.name">
+            <input type="text" id="name" name="name" [(ngModel)]="itemFormData.name">
             <label>Size</label>
-            <input type="text" id="size" [(ngModel)]="itemFormData.size"><span>Cu ft.</span>
+            <input type="text" id="size" name="size" [(ngModel)]="itemFormData.size"><span>Cu ft.</span>
             <label>Amount</label>
-            <input type="text" id="amount" [(ngModel)]="itemFormData.amount">
-            <input type="submit" id="submit">           
+            <input type="text" id="amount" name="amount" [(ngModel)]="itemFormData.amount">
+            <input type="submit" value="submit">           
         </form>
     </div>
 </div>

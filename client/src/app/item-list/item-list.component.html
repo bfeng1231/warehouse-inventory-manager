@@ -1,3 +1,4 @@
+<div *ngIf="items.length != 0 ; else showEmpty">
 <div *ngIf="!edit ; else showEdit">
     <table *ngIf="items.length != 0">
         <thead>
@@ -43,3 +44,11 @@
         </table>
     </div>
 </ng-template>
+</div>
+
+<ng-template #showEmpty>
+    <div>
+        This container is empty. Try adding an item.
+    </div>
+</ng-template>
+

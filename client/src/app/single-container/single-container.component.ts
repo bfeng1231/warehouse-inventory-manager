@@ -14,6 +14,8 @@ export class SingleContainerComponent implements OnInit {
     id: any
     container: any = {}
     edit: boolean = false
+    showModal: any = {state: false, id: 0, data: {}}
+    itemEntry: any = {}
 
     constructor(service: ContainerApiService, private route: ActivatedRoute, private router: Router) { 
         this.service = service
@@ -32,6 +34,17 @@ export class SingleContainerComponent implements OnInit {
 
     showEdit(): void {
         this.edit = !this.edit
+    }
+
+    displayModal(data: any): void {
+        console.log("Open modal")
+        this.showModal = {state: !this.showModal.state, id: 0, data}
+        console.log(this.showModal)
+    }
+
+    addItem(data: any): void {
+        console.log(data)
+        this.itemEntry = data
     }
 
 }

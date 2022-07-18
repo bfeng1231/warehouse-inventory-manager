@@ -12,8 +12,10 @@
         <div>{{ container.location }}</div>
     </section>
 
-    <app-item-list [id]="id" [edit]="edit"></app-item-list>
-
+    <app-item-list [id]="id" [edit]="edit" [item]="itemEntry"></app-item-list>
+    <section>
+        <button (click)="displayModal({type: 'itemForm', id})">Add Item</button>
+    </section>
     <footer>
         <div *ngIf="!edit; else editMode">
             <button (click)="showEdit()">Edit</button>
@@ -27,3 +29,5 @@
         </ng-template>
     </footer>
 </div>
+
+<app-modal *ngIf="showModal.state" [data]="showModal.data" (sumbitEvent)="addItem($event)"></app-modal>

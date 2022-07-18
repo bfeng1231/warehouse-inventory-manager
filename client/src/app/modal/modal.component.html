@@ -1,6 +1,7 @@
 <div>
     <div>
-        <app-container-form *ngIf="data.type == 'form'" (submitEvent)="addContainer($event)"></app-container-form>
+        <app-container-form *ngIf="data.type == 'form'" (submitEvent)="addData($event)"></app-container-form>
+        <app-item-form *ngIf="data.type == 'itemForm'" (submitEvent)="addData($event)"></app-item-form>
 
         <div name="modal" *ngIf="data.type == 'delete'">
             <div>Close</div>
@@ -8,7 +9,7 @@
             <div>Are you sure you want to delete this container?</div>
             <div>All items inside will also be deleted.</div>
             <div>
-                <button (click)="deleteContainer(data.id)">Confirm</button>
+                <button (click)="deleteData(data.id)">Confirm</button>
                 <button (click)="closeModal()">Cancel</button>
             </div>
         </div>

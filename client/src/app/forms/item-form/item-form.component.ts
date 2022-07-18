@@ -17,7 +17,7 @@ export class ItemFormComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    onSubmit(data: any) {
+    onSubmit(data: any): void {
         if (Object.keys(data).length != 3) {
             this.message = 'Please enter all fields'
             return
@@ -31,6 +31,6 @@ export class ItemFormComponent implements OnInit {
             return
         }
 
-        console.log(data)
+        this.submitEvent.emit(data)
     }
 }

@@ -10,7 +10,7 @@ export class ContainerPageComponent implements OnInit {
 
     service: ContainerApiService
     containers: Array<any> = []
-    showModal: any = {state: false, id: 0, data: {}}
+    showModal: any = {state: false, data: {}}
 
     constructor(service: ContainerApiService) { 
         this.service = service
@@ -24,7 +24,7 @@ export class ContainerPageComponent implements OnInit {
 
     displayModal(data: any): void {
         console.log("Open modal")
-        this.showModal = {state: !this.showModal.state, id: 0, data}
+        this.showModal = {state: !this.showModal.state, data}
         console.log(this.showModal)
     }
     
@@ -34,7 +34,7 @@ export class ContainerPageComponent implements OnInit {
         // })
         let index = this.containers.findIndex(elem => elem.id == id)
         this.containers.splice(index, 1)
-        this.showModal = {state: !this.showModal.state, id: 0}
+        this.showModal = {state: !this.showModal.state, data: {}}
     }
 
     addContainer(formData: any) {

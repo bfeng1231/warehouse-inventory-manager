@@ -25,11 +25,11 @@ export class ModalComponent implements OnInit {
         this.closeEvent.emit()
     }
 
-    deleteContainer(id: number): void {
+    deleteData(id: number): void {
         this.deleteEvent.emit(id)
     }
 
-    addContainer(formData: any) {
+    addData(formData: any) {
         this.sumbitEvent.emit(formData)
     }
 }
