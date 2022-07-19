@@ -9,16 +9,26 @@ export class ItemFormComponent implements OnInit {
 
     itemFormData: any = {}
     message: string = ''
-    @Input() id: number = 0
+    id: number = 0
     @Output() submitEvent = new EventEmitter<any>()
+    @Input() data: any = {}
 
     constructor() { }
 
     ngOnInit(): void {
+        if (this.data.hasOwnProperty('item')) {
+            this.itemFormData = {
+                item_id: this.data.item.item_id,
+                name: this.data.item.name,
+                size: this.data.item.size,
+                amount: this.data.item.units
+            }
+            this.id = this.data.item.item_id
+        }
     }
 
     onSubmit(data: any): void {
-        if (Object.keys(data).length != 3) {
+        if (Object.keys(data).length < 3) {
             this.message = 'Please enter all fields'
             return
         }

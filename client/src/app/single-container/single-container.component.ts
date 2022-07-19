@@ -51,6 +51,15 @@ export class SingleContainerComponent implements OnInit {
         console.log(data)
         if ((data.size * data.amount) + this.currentSpace > this.container.transport_size)
             return window.alert("Unable to add item due to insufficant amount of space")
+
+        this.currentSpace += (data.size * data.amount)
+        if (data.hasOwnProperty("item_id")) {
+            this.itemService.update(data, this.id)
+                .subscribe({
+                    next: resp => console.log(resp),
+                    error: err => console.log(err)
+                })
+        }
         else {
             this.currentSpace += (data.size * data.amount)
             this.itemService.save(data, this.id).subscribe(resp => {

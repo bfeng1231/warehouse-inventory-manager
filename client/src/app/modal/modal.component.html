@@ -1,7 +1,7 @@
 <div>
     <div>
         <app-container-form *ngIf="data.type == 'form'" (submitEvent)="addData($event)" [data]="data"></app-container-form>
-        <app-item-form *ngIf="data.type == 'itemForm'" (submitEvent)="addData($event)"></app-item-form>
+        <app-item-form *ngIf="data.type == 'itemForm'" (submitEvent)="addData($event)" [data]="data"></app-item-form>
 
         <div name="modal" *ngIf="data.type == 'delete'">
             <div>Close</div>

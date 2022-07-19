@@ -13,7 +13,8 @@
     </section>
 
     <app-item-list [id]="id" [edit]="edit" [item]="itemEntry" [itemChecklist]="itemChecklist"
-        (onChangeEvent)="updateEditList($event)" >
+        (onChangeEvent)="updateEditList($event)" 
+        (onClickEvent)="displayModal({type: 'itemForm', item: $event})">
     </app-item-list>
     <section>
         <button (click)="displayModal({type: 'itemForm', id})">Add Item</button>

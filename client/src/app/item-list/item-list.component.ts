@@ -19,6 +19,7 @@ export class ItemListComponent implements OnInit {
     }
     @Output() onChangeEvent = new EventEmitter<Array<number>>()
     @Input() itemChecklist: Array<number> = []
+    @Output() onClickEvent = new EventEmitter<any>()
 
     constructor(service: ItemApiService) { 
         this.service = service
@@ -39,5 +40,8 @@ export class ItemListComponent implements OnInit {
         this.onChangeEvent.emit(this.itemChecklist)
     }
 
+    openModal(data: any): void {
+        this.onClickEvent.emit(data)
+    }
 
 }

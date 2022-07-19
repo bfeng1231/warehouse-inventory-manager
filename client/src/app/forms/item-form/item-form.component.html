@@ -3,6 +3,9 @@
         <div *ngIf="message.length != 0">
             {{ message }}
         </div>
+        <div *ngIf="id != 0">
+            Edit Item #{{ id }}
+        </div>
         <form (ngSubmit)="onSubmit(itemFormData)">
             <label for="name">Item Name</label>
             <input type="text" id="name" name="name" [(ngModel)]="itemFormData.name">

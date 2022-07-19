@@ -35,4 +35,15 @@ export class ItemApiService {
         }
         return this.http.delete(environment.apiUrl + "items/", options)
     }
+
+    update(data: any, id: number): Observable<any> {
+        let body = {
+            item_id: data.item_id,
+            name: data.name,
+            size: data.size,
+            units: data.amount,
+            container_id: id
+        }
+        return this.http.put(environment.apiUrl + "items/", body)
+    }
 }
