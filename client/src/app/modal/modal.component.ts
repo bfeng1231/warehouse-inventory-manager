@@ -23,7 +23,7 @@ export class ModalComponent implements OnInit {
     }
 
     closeModal(): void {
-        this.closeEvent.emit()
+        this.closeEvent.emit()  
     }
 
     deleteData(id: number): void {

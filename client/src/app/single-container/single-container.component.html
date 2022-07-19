@@ -35,5 +35,6 @@
 
 <app-modal *ngIf="showModal.state" [data]="showModal.data" 
     (sumbitItemEvent)="addItem($event)"
-    (sumbitContainerEvent)="editContainer($event)">
+    (sumbitContainerEvent)="editContainer($event)"
+    (closeEvent)="displayModal({})">
 </app-modal>

@@ -46,14 +46,14 @@ export class SingleContainerComponent implements OnInit {
         console.log("Open modal")
         this.showModal = {state: !this.showModal.state, data}
         console.log(this.showModal)
+        console.log("It's a me")
     }
 
     addItem(data: any): void {
         console.log(data)
         if ((data.size * data.amount) + this.currentSpace > this.container.transport_size)
             return window.alert("Unable to add item due to insufficant amount of space")
-
-        this.currentSpace += (data.size * data.amount)
+      
         if (data.hasOwnProperty("item_id")) {
             this.itemService.update(data, this.id)
                 .subscribe({
@@ -77,10 +77,15 @@ export class SingleContainerComponent implements OnInit {
     }
 
     deleteItems(): void {
-        this.itemService.delete(this.itemChecklist).subscribe(resp => console.log(resp))
+        this.itemService.delete(this.itemChecklist).subscribe(resp => {
+            console.log(resp)
+
+        })
     }
 
     editContainer(data: any): void {
-        this.service.update(data, this.id).subscribe(resp => console.log(resp))
+        this.service.update(data, this.id).subscribe(resp => {
+            console.log(resp)
+        })
     }
 }

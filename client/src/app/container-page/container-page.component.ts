@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { ContainerApiService } from '../services/container-api.service';
 
 @Component({
@@ -17,6 +17,13 @@ export class ContainerPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.service.findAll('container_id', 'asc').subscribe(resp => {
+            console.log(resp)
+            this.containers = resp})
+    }
+
+    updateView(container: any): void {
+        this.containers.push(container)
         this.service.findAll('container_id', 'asc').subscribe(resp => {
             console.log(resp)
             this.containers = resp})
@@ -42,8 +49,8 @@ export class ContainerPageComponent implements OnInit {
         this.service.save(formData)
             .subscribe({
                 next: resp => {
-                        console.log(resp) 
-                        this.ngOnInit
+                        console.log(resp)
+                        this.updateView(resp)
                     },
                 error: err => {window.alert("A container already exists on that location")}
             })
