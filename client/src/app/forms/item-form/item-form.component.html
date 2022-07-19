@@ -10,9 +10,9 @@
             <label for="name">Item Name</label>
             <input type="text" id="name" name="name" [(ngModel)]="itemFormData.name">
             <label>Size</label>
-            <input type="text" id="size" name="size" [(ngModel)]="itemFormData.size"><span>Cu ft.</span>
+            <input type="number" id="size" name="size" [(ngModel)]="itemFormData.size"><span>Cu ft.</span>
             <label>Amount</label>
-            <input type="text" id="amount" name="amount" [(ngModel)]="itemFormData.amount">
+            <input type="number" id="amount" name="amount" [(ngModel)]="itemFormData.amount">
             <input type="submit" value="submit">           
         </form>
     </div>

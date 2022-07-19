@@ -16,7 +16,7 @@ export class SingleContainerComponent implements OnInit {
     id: any
     container: any = {}
     edit: boolean = false
-    showModal: any = {state: false, id: 0, data: {}}
+    showModal: any = {state: false, data: {}}
     itemEntry: any = {}
     currentSpace: number = 0
     itemChecklist: Array<number> = []
@@ -39,11 +39,12 @@ export class SingleContainerComponent implements OnInit {
     showEdit(): void {
         this.edit = !this.edit
         this.itemChecklist = []
+        this.showModal = {state: false, data: {}}
     }
 
     displayModal(data: any): void {
         console.log("Open modal")
-        this.showModal = {state: !this.showModal.state, id: 0, data}
+        this.showModal = {state: !this.showModal.state, data}
         console.log(this.showModal)
     }
 
