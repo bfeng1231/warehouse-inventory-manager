@@ -9,7 +9,25 @@ thead {
     border-bottom: 1px solid black;
 }
 
+tr:hover {
+    background-color: lightgray;
+}
+
 td {
     padding: 5px;
     
+}
+
+td > input {
+    height: 15px;
+    width: 15px;
+    box-shadow: 0 0 0 1px gray;
+    outline: none;
+    border: none;
+    overflow: hidden;   
+}
+
+td > input:hover {
+    box-shadow: 0 0 0 2px skyblue;
+    cursor: pointer;
 }

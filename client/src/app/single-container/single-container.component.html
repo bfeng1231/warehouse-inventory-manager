@@ -1,12 +1,12 @@
-<div>
-    <nav>
-        <button><a [routerLink]="['']">Go back</a></button>
-    </nav>
+<nav>
+    <button><a [routerLink]="['']">Go back</a></button>
+</nav>
 
+<div class="container">
     <header>
         <div># {{ container.id }}</div>
     </header>  
-    <section>
+    <section class="container-info">
         <div>{{ container.transport_name }}</div>
         <div>{{ currentSpace }} / {{ container.transport_size }} ft<sup>3</sup></div>
         <div>{{ container.location }}</div>
@@ -16,9 +16,11 @@
         (onChangeEvent)="updateEditList($event)" 
         (onClickEvent)="displayModal({type: 'itemForm', item: $event})">
     </app-item-list>
-    <section>
+
+    <section class="add-button">
         <button (click)="displayModal({type: 'itemForm', id})">Add Item</button>
     </section>
+
     <footer>
         <div *ngIf="!edit; else editMode">
             <button (click)="showEdit()">Edit</button>

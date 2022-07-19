@@ -16,6 +16,9 @@
     width: 75%;
     background-color: blueviolet;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    
 }
 
 .container > div > header {
@@ -27,12 +30,11 @@
 .container > div > section {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
     background-color: azure;
 }
 
 .container > div > section div {
-    width: 100px;
+    flex: 1;
     text-align: center;
     font-size: 18px;
 }
@@ -40,6 +42,7 @@
 .container > div > main {
     min-height: 200px;
     margin-top: 20px;
+    flex: 1;
 }
 
 .container > div > footer {
@@ -47,6 +50,7 @@
     display: flex;
     justify-content: space-between;
     padding: 5px;
+    border-top: 1px solid black;
 }
 
 .container > div > footer button {
@@ -71,12 +75,13 @@
 .addContainer {
     background-color: cadetblue;
     width: 50%;
+    min-height: 332px;
     display: flex;
     justify-content: center;
 }
 
 .addContainer > div {
-    width: 50%;
+    width: 75%;
     border: 1px solid black;
     border-radius: 5px;
     display: flex;
