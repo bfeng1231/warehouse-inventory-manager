@@ -1,5 +1,5 @@
 <div *ngIf="items.length != 0 ; else showEmpty">
-<div *ngIf="!edit ; else showEdit">
+<!-- <div *ngIf="!edit ; else showEdit">
     <table *ngIf="items.length != 0">
         <thead>
             <th>ID</th>
@@ -18,9 +18,58 @@
             </tr>
         </tbody>
     </table>
-</div>
+</div> -->
+
+<p-table [value]="items" *ngIf="!edit ; else showEdit">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-elem>
+        <tr>
+            <td>{{ elem.item_id }}</td>
+            <td>{{ elem.name }}</td>
+            <td>{{ elem.size }} ft<sup>3</sup></td> 
+            <td>{{ elem.units }}</td>
+            <td>{{ elem.datetime | date: 'short'}}</td>
+        </tr>
+    </ng-template> 
+</p-table>
 
 <ng-template #showEdit>
+<p-table [value]="items">
+    <ng-template pTemplate="header">
+        <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-elem>
+        <tr>
+            <!-- <td><p-checkbox (onChange)="itemChecklistHandler(elem.item_id)" ></p-checkbox></td> -->
+            <td><input type="checkbox" (change)="itemChecklistHandler(elem.item_id)"></td>
+            <td>{{ elem.item_id }}</td>
+            <td>{{ elem.name }}</td>
+            <td>{{ elem.size }} ft<sup>3</sup></td> 
+            <td>{{ elem.units }}</td>
+            <td>{{ elem.datetime | date: 'short'}}</td>
+            <td><div (click)="openModal(elem)" class="pi pi-cog"></div></td>
+        </tr>
+    </ng-template> 
+</p-table>
+</ng-template>
+
+<!-- <ng-template #showEdit>
     <div>
         <table *ngIf="items.length != 0">
             <thead>
@@ -44,12 +93,12 @@
             </tbody>
         </table>
     </div>
-</ng-template>
+</ng-template> -->
 </div>
 
 <ng-template #showEmpty>
     <div class="empty">
-        This container is empty. Try adding an item.
+        <div>This container is empty. Try adding an item.</div>
     </div>
 </ng-template>
 

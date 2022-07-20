@@ -66,6 +66,7 @@ export class SingleContainerComponent implements OnInit {
             this.itemService.save(data, this.id).subscribe(resp => {
                 console.log(resp)
                 this.itemEntry = resp
+                this.showModal = {state: false, data: {}}
             })
         }
         
@@ -86,6 +87,7 @@ export class SingleContainerComponent implements OnInit {
     editContainer(data: any): void {
         this.service.update(data, this.id).subscribe(resp => {
             console.log(resp)
+            this.showModal = {state: false, data: {}}
         })
     }
 }

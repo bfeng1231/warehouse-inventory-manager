@@ -1,37 +1,62 @@
+nav {
+    margin: 0px 0px 50px 50px;
+}
+
+a , a:visited {
+    text-decoration: none;
+    color: black;
+}
+
 .container {
-    border: 1px solid black;
     border-radius: 5px;
+    overflow: hidden;
+    width: 95%;
+    margin: auto;
+    background-color: white;
+    box-shadow: 8px 5px 5px gray;
 }
 
 header {
     text-align: center;
+    font-size: 24px;
+    padding: 10px;
+    background-color: rgb(0, 147, 206);
+    color: white;
 }
 
 .container-info {
     display: flex;
     justify-content: space-between;
+    font-size: 18px;
+    margin-bottom: 30px;
+    background-color: rgb(255, 164, 79);
+    padding: 10px 0px 10px 0px;
 }
 
 .container-info > div {
     flex: 1;
-    border: 1px solid black;
     text-align: center;
 }
 
 .add-button {
     display: flex;
     justify-content: flex-end;
+    padding: 10px;
 }
 
 .add-button button {
     height: 30px;
-    width: 100px;
+    margin-top: 50px;
+}
+
+footer {
+    margin-top: 20px;
 }
 
 footer > div {
     display: flex;
     justify-content: flex-end;
-    background-color: aquamarine;
+    background-color: lightgray;
 }
 
 footer > div button {

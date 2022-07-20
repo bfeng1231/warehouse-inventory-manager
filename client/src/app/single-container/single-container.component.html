@@ -1,15 +1,15 @@
 <nav>
-    <button><a [routerLink]="['']">Go back</a></button>
+    <a [routerLink]="['']"><div class="pi pi-arrow-left"></div> Return Home</a>
 </nav>
 
 <div class="container">
     <header>
-        <div># {{ container.id }}</div>
+        <div>Container #{{ container.id }}</div>
     </header>  
     <section class="container-info">
-        <div>{{ container.transport_name }}</div>
+        <div>Type: {{ container.transport_name }}</div>
         <div>{{ currentSpace }} / {{ container.transport_size }} ft<sup>3</sup></div>
-        <div>{{ container.location }}</div>
+        <div>Location: {{ container.location }}</div>
     </section>
 
     <app-item-list [id]="id" [edit]="edit" [item]="itemEntry" [itemChecklist]="itemChecklist"
@@ -18,18 +18,25 @@
     </app-item-list>
 
     <section class="add-button">
-        <button (click)="displayModal({type: 'itemForm', id})">Add Item</button>
+        <button (click)="displayModal({type: 'itemForm', id})" pButton class="p-button-warning"><div class="pi pi-plus"></div>Add Item</button>
     </section>
 
     <footer>
         <div *ngIf="!edit; else editMode">
-            <button (click)="showEdit()">Edit</button>
+            <button (click)="showEdit()" pButton>Edit</button>
         </div>
         <ng-template #editMode>
             <div>
-                <button (click)="deleteItems()">Delete Items</button>
-                <button (click)="displayModal({type: 'form', container})">Edit Container</button>
-                <button (click)="showEdit()">Done</button>
+                <button (click)="deleteItems()" pButton class="p-button-danger" *ngIf="itemChecklist.length != 0; else showButton">
+                    <div class="pi pi-trash"></div>Delete Items
+                </button>
+                <ng-template #showButton>
+                    <button (click)="deleteItems()" pButton class="p-button-danger" disabled>
+                        <div class="pi pi-trash"></div>Delete Items
+                    </button>
+                </ng-template>
+                <button (click)="displayModal({type: 'form', container})" pButton>Edit Container</button>
+                <button (click)="showEdit()" pButton class="p-button-success">Done</button>
             </div>
         </ng-template>
     </footer>

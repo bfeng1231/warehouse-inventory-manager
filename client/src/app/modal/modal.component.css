@@ -14,18 +14,41 @@
     top: 30vh;
     background-color: white;
     z-index: 3;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-header {
-    border-bottom: 1px solid black;
+nav {
     display: flex;
     justify-content: flex-end;
+    background-color: lightgray;
 }
 
-header > div {
-    background-color: deeppink;
+nav > div {
+    font-size: 24px;
+    margin: 5px;
+}
+
+nav > div:hover {
+    cursor: pointer;
+    color: red;
 }
 
 main {
     padding: 10px;
+}
+
+header {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+button {
+    height: 30px;
 }

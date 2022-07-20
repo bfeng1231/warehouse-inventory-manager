@@ -1,6 +1,9 @@
-<div>
-    <div *ngIf="error">{{ message }}</div>
-    <div *ngIf="data.hasOwnProperty('container')">Edit Container #{{data.container.id}}</div>
+<div class="form-container">   
+    <header *ngIf="data.hasOwnProperty('container'); else addContainer">Edit Container #{{data.container.id}}</header>
+    <ng-template #addContainer>
+        <header>Add a new container</header>
+    </ng-template>
+    <section *ngIf="error">{{ message }}</section>
     <form (ngSubmit)="onSubmit(containerFormData)">
         <label for="transport">Transport Type</label>
         <select id="transport" name="transport" [(ngModel)]="containerFormData.transport">
@@ -10,6 +13,6 @@
         </select>
         <label for="location">Location</label>
         <input type="text" id="location" name="location" [(ngModel)]="containerFormData.location">
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" class="submit-button">
     </form>
 </div>

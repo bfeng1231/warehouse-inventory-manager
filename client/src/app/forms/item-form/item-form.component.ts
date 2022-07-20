@@ -32,6 +32,10 @@ export class ItemFormComponent implements OnInit {
             this.message = 'Please enter all fields'
             return
         }
+        if (data.name.length >= 30) {
+            this.message = 'The item name can only be 30 characters or less'
+            return
+        }
         if (data.size <= 0) {
             this.message = 'The item size can not be zero or less'
             return

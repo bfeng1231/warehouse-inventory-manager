@@ -31,7 +31,7 @@ export class ContainerFormComponent implements OnInit {
             return
         } else if (container.location.length > 3) {
             this.error = true
-            this.message = 'The location can only be 4 characters long'
+            this.message = 'The location can only be 3 characters long'
             return
         } else if (container.location.search('^[A-z]') == -1) {
             this.error = true

@@ -10,6 +10,10 @@ import { ContainerFormComponent } from './forms/container-form/container-form.co
 import { ModalComponent } from './modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { ItemFormComponent } from './forms/item-form/item-form.component';
+import { TableModule } from 'primeng/table'
+import { InputTextModule } from 'primeng/inputtext'
+import {CheckboxModule} from 'primeng/checkbox';
+import { ButtonModule } from 'primeng/button'
 
 @NgModule({
   declarations: [
@@ -25,7 +29,11 @@ import { ItemFormComponent } from './forms/item-form/item-form.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    TableModule,
+    InputTextModule,
+    CheckboxModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

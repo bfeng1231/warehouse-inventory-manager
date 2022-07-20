@@ -1,19 +1,25 @@
-<div>
-    <div>
-        <div *ngIf="message.length != 0">
-            {{ message }}
-        </div>
-        <div *ngIf="id != 0">
-            Edit Item #{{ id }}
-        </div>
-        <form (ngSubmit)="onSubmit(itemFormData)">
-            <label for="name">Item Name</label>
-            <input type="text" id="name" name="name" [(ngModel)]="itemFormData.name">
-            <label>Size</label>
-            <input type="number" id="size" name="size" [(ngModel)]="itemFormData.size"><span>Cu ft.</span>
-            <label>Amount</label>
-            <input type="number" id="amount" name="amount" [(ngModel)]="itemFormData.amount">
-            <input type="submit" value="submit">           
-        </form>
+<div class="item-form">
+    <header *ngIf="id != 0 ; else addItem">
+        Edit Item #{{ id }}
+    </header>
+    <ng-template #addItem>
+        <header>
+            Add a new item
+        </header>
+    </ng-template>
+    <div *ngIf="message.length != 0">
+        {{ message }}
     </div>
+    <form (ngSubmit)="onSubmit(itemFormData)">
+        <label for="name">Item Name</label>
+        <input type="text" id="name" name="name" [(ngModel)]="itemFormData.name">
+        <label>Size</label>
+        <div>
+            <input type="number" id="size" name="size" [(ngModel)]="itemFormData.size"><span>ft<sup>3</sup></span>
+        </div>
+        <label>Amount</label>
+        <input type="number" id="amount" name="amount" [(ngModel)]="itemFormData.amount">
+        <input type="submit" value="Submit" class="submit-button">           
+    </form>
 </div>
+

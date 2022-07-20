@@ -4,3 +4,14 @@
 html {
     font-family: 'Open Sans', sans-serif;
 }
+
+body {
+    border: none !important;
+    margin: 0px !important;
+    padding: 0 !important;
+    background-color: rgb(255, 250, 234);
+}
+
+button > div {
+    margin-right: 5px;
+}

@@ -17,8 +17,8 @@
             <app-item-list [id]="elem.id"></app-item-list>
         </main>
         <footer>
-            <button (click)="displayModal({type: 'delete', id: elem.id})">Delete</button>
-            <button><a [routerLink]="[elem.id]">View</a></button>
+            <button (click)="displayModal({type: 'delete', id: elem.id})" pButton class="p-button-danger"><div class="pi pi-trash"></div>Delete</button>
+            <a [routerLink]="[elem.id]"><button pButton><div class="pi pi-bars"></div>View</button></a>
         </footer>
         </div>
     </div>
@@ -26,7 +26,7 @@
     
     <div class="addContainer">
         <div (click)="displayModal({type: 'form'})">
-            <div>+</div>
+            <div class="pi pi-plus-circle"></div>
             <div>Add Container</div>
         </div>
     </div>

@@ -1,36 +1,37 @@
 .container-page {
     display: flex;
     flex-flow: row wrap;
-    background-color: aqua;
     row-gap: 40px;
 }
 
 .container {
-    background-color: aquamarine;
     width: 50%;
     display: flex;
     justify-content: center;
 }
 
 .container > div {
-    width: 75%;
-    background-color: blueviolet;
-    border-radius: 5px;
+    width: 90%;
     display: flex;
     flex-direction: column;
-    
+    box-shadow: 8px 5px 5px gray;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .container > div > header {
     text-align: center;
     font-size: 24px;
     padding: 5px;
+    background-color: rgb(0, 147, 206);
+    color: white;
 }
 
 .container > div > section {
     display: flex;
     justify-content: space-between;
-    background-color: azure;
+    background-color: rgb(255, 164, 79);
+    padding: 10px 0px 10px 0px;
 }
 
 .container > div > section div {
@@ -41,21 +42,19 @@
 
 .container > div > main {
     min-height: 200px;
-    margin-top: 20px;
     flex: 1;
+    background-color: white;
 }
 
 .container > div > footer {
-    background-color: crimson;
+    background-color: lightgray;
     display: flex;
     justify-content: space-between;
-    padding: 5px;
-    border-top: 1px solid black;
+    padding: 10px 10px 10px 10px;
 }
 
 .container > div > footer button {
     height: 30px;
-    width: 100px;
     font-size: 18px;
 }
 
@@ -73,7 +72,6 @@
 }
 
 .addContainer {
-    background-color: cadetblue;
     width: 50%;
     min-height: 332px;
     display: flex;
@@ -81,13 +79,15 @@
 }
 
 .addContainer > div {
-    width: 75%;
-    border: 1px solid black;
+    width: 90%;
+    background-color: white;
+    border: 2px solid rgb(0, 147, 206);
     border-radius: 5px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    box-shadow: 8px 5px 5px gray;
 }
 
 .addContainer > div:hover {
@@ -97,3 +97,4 @@
 .addContainer > div > div {
     font-size: 48px;
 }
+

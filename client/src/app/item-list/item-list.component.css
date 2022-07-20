@@ -1,4 +1,4 @@
-table {
+/* table {
     background-color: darkgreen;
     width: 100%;
     text-align: center;
@@ -7,16 +7,16 @@ table {
 
 thead {
     border-bottom: 1px solid black;
-}
+} */
 
 tr:hover {
     background-color: lightgray;
 }
 
-td {
+/* td {
     padding: 5px;
     
-}
+} */
 
 td > input {
     height: 15px;
@@ -31,3 +31,19 @@ td > input:hover {
     box-shadow: 0 0 0 2px skyblue;
     cursor: pointer;
 }
+
+td > div {
+    font-size: 24px;
+}
+
+td > div:hover {
+    cursor: pointer;
+}
+
+.empty {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+
