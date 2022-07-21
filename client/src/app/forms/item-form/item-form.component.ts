@@ -46,6 +46,5 @@ export class ItemFormComponent implements OnInit {
         }
 
         this.submitEvent.emit(data)
-        this.itemFormData = {}
     }
 }

@@ -13,9 +13,8 @@ export class ItemListComponent implements OnInit {
     @Input() id: number = 0
     @Input() edit: boolean = false
     @Input() set item(data: any) {
-        //this.items.push(data)
-        this.items.push({...data, datetime: Date.now()})
-            
+        let index = this.items.findIndex(elem => elem.item_id == data.item_id)
+        index != -1 ? this.items[index] = {...data , datetime: Date.now()} : this.items.push({...data, datetime: Date.now()})          
     }
     @Output() onChangeEvent = new EventEmitter<Array<number>>()
     @Input() itemChecklist: Array<number> = []
@@ -27,7 +26,7 @@ export class ItemListComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("Getting items for container", this.id)
-        this.service.findById(this.id, "item_id", "asc").subscribe(resp => {
+        this.service.findAll(this.id, "item_id", "asc").subscribe(resp => {
             console.log(resp)
             this.items = resp})
            

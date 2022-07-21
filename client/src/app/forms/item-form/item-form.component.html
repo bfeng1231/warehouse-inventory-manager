@@ -7,9 +7,9 @@
             Add a new item
         </header>
     </ng-template>
-    <div *ngIf="message.length != 0">
+    <section *ngIf="message.length != 0">
         {{ message }}
-    </div>
+    </section>
     <form (ngSubmit)="onSubmit(itemFormData)">
         <label for="name">Item Name</label>
         <input type="text" id="name" name="name" [(ngModel)]="itemFormData.name">

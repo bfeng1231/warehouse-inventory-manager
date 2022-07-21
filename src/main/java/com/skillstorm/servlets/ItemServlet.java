@@ -48,16 +48,34 @@ public class ItemServlet extends HttpServlet{
 				resp.getWriter().print(mapper.writeValueAsString(new Message("Not a valid url")));	
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-						
-			String[] param = urlService.extractParamFromURL(req.getPathInfo());
-			Map<String, String[]> params = req.getParameterMap();
 			
-			int id = Integer.parseInt(param[1]);
-			List<Item> items = dao.findAll(id, params.get("sort")[0], params.get("order")[0]);
-			resp.setStatus(200);
-			resp.setContentType("application/JSON");
-			resp.getWriter().print(mapper.writeValueAsString(items));
-			
+			try {
+				
+				String[] param = urlService.extractParamFromURL(req.getPathInfo());
+				Map<String, String[]> params = req.getParameterMap();
+				
+				int id = Integer.parseInt(param[1]);
+				List<Item> items = dao.findAll(id, params.get("sort")[0], params.get("order")[0]);
+				resp.setStatus(200);
+				resp.setContentType("application/JSON");
+				resp.getWriter().print(mapper.writeValueAsString(items));
+				
+			} catch (NullPointerException error) {
+				
+				String[] param = urlService.extractParamFromURL(req.getPathInfo());
+				int id = Integer.parseInt(param[1]);
+				Item item = dao.findByParam(id);
+				
+				if (item == null) {
+					resp.setStatus(404);
+					resp.getWriter().print(mapper.writeValueAsString(new Message("No item with id " + id + " found")));
+				} else {
+					resp.setStatus(200);
+					resp.setContentType("application/JSON");
+					resp.getWriter().print(mapper.writeValueAsString(item));
+				}
+				
+			}			
 		} catch (Exception e) {
 			//e.printStackTrace();
 			resp.setStatus(404);

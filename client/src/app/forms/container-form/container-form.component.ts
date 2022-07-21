@@ -42,7 +42,6 @@ export class ContainerFormComponent implements OnInit {
             this.message = 'The last 3 characters must be numbers'
             return
         }
-
         this.submitEvent.emit(this.containerFormData)
     }
 
