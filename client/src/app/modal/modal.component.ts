@@ -8,7 +8,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class ModalComponent implements OnInit {
 
     @Input() data: any = ''
-    @Output() deleteEvent = new EventEmitter<number>()
+    @Output() deleteContainerEvent = new EventEmitter<number>()
+    @Output() deleteItemEvent = new EventEmitter<number>()
     @Output() closeEvent = new EventEmitter()
     @Output() sumbitContainerEvent = new EventEmitter<any>()
     @Output() sumbitItemEvent = new EventEmitter<any>()
@@ -26,8 +27,17 @@ export class ModalComponent implements OnInit {
         this.closeEvent.emit()  
     }
 
-    deleteData(id: number): void {
-        this.deleteEvent.emit(id)
+    deleteData(data: any): void {
+        switch(this.data.type) {
+            case 'delete':
+                this.deleteContainerEvent.emit(data.id)
+                return
+            case 'deleteItems':
+                this.deleteItemEvent.emit(data.itemChecklist)
+                return
+            default:
+                return
+        }
     }
 
     addData(formData: any): void {

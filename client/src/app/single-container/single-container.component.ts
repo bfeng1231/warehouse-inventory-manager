@@ -97,10 +97,10 @@ export class SingleContainerComponent implements OnInit {
         console.log(this.itemChecklist)
     }
 
-    deleteItems(): void {
-        this.itemService.delete(this.itemChecklist).subscribe(resp => {
+    deleteItems(data: any): void {
+        this.itemService.delete(data).subscribe(resp => {
             console.log(resp)
-
+            this.showModal = {state: false, data: {}}
         })
     }
 

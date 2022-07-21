@@ -11,9 +11,19 @@
                 <div>All items inside will also be deleted.</div>
                 <footer>
                     <button (click)="closeModal()" pButton class="p-button-danger">Cancel</button>
-                    <button (click)="deleteData(data.id)" pButton class="p-button-success">Confirm</button>                   
+                    <button (click)="deleteData(data)" pButton class="p-button-success">Confirm</button>                   
                 </footer>
             </div>
+
+            <div name="modal" *ngIf="data.type == 'deleteItems'">
+                <header>Delete items</header>
+                <div>Are you sure you want to delete these items?</div>
+                <footer>
+                    <button (click)="closeModal()" pButton class="p-button-danger">Cancel</button>
+                    <button (click)="deleteData(data)" pButton class="p-button-success">Confirm</button>                   
+                </footer>
+            </div>
+
         </main>
     </div>
 </div>

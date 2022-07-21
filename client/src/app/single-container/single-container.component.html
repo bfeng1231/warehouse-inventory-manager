@@ -27,11 +27,11 @@
         </div>
         <ng-template #editMode>
             <div>
-                <button (click)="deleteItems()" pButton class="p-button-danger" *ngIf="itemChecklist.length != 0; else showButton">
+                <button (click)="displayModal({type: 'deleteItems', itemChecklist})" pButton class="p-button-danger" *ngIf="itemChecklist.length != 0; else showButton">
                     <div class="pi pi-trash"></div>Delete Items
                 </button>
                 <ng-template #showButton>
-                    <button (click)="deleteItems()" pButton class="p-button-danger" disabled>
+                    <button pButton class="p-button-danger" disabled>
                         <div class="pi pi-trash"></div>Delete Items
                     </button>
                 </ng-template>
@@ -45,5 +45,6 @@
 <app-modal *ngIf="showModal.state" [data]="showModal.data" 
     (sumbitItemEvent)="addItem($event)"
     (sumbitContainerEvent)="editContainer($event)"
-    (closeEvent)="displayModal({})">
+    (closeEvent)="displayModal({})"
+    (deleteItemEvent)="deleteItems($event)">
 </app-modal>
