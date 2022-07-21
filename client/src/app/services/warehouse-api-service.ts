@@ -14,6 +14,10 @@ export class WarehouseApiService {
         this.http = http
     }
 
+    findAll(): Observable<any> {
+        return this.http.get(environment.apiUrl + "warehouses/")
+    }
+
     findById(id: number): Observable<any> {
         return this.http.get(environment.apiUrl + "warehouses/" + id)
     }

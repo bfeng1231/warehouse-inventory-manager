@@ -34,7 +34,8 @@ export class SingleContainerComponent implements OnInit {
     }
 
     getData() {
-        this.id = this.route.snapshot.paramMap.get('id')
+        this.id = this.route.snapshot.paramMap.get('container-id')
+        console.log(this.route.snapshot.paramMap)
         this.service.findByTerm(this.id)
             .subscribe({
                 next: resp => {this.container = resp[0]

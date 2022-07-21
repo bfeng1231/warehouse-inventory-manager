@@ -1,0 +1,13 @@
+<div *ngFor="let elem of warehoueses">
+    <header>{{ elem.warehouse_id }}</header>
+    <section>
+        <div>{{ elem.warehouse_size }}</div>
+        <div>
+            <div>{{ elem.address }}</div>
+            <div>{{ elem.zipcode }}</div>
+        </div>
+    </section>
+    <footer>  
+        <a [routerLink]="[elem.warehouse_id]"><button>View</button></a>
+    </footer>
+</div>
