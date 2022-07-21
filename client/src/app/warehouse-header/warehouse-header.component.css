@@ -1,0 +1,9 @@
+header {
+    display: flex;
+    flex: row wrap;
+    background-color: lightslategray;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 50px;
+    color: white;
+}

@@ -19,7 +19,6 @@ export class ItemApiService {
     }
 
     findById(id: number): Observable<any> {
-        console.log("Looking for id")
         return this.http.get(environment.apiUrl + "items/" + id)
     }
 

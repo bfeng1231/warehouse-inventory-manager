@@ -13,7 +13,8 @@ import { ItemFormComponent } from './forms/item-form/item-form.component';
 import { TableModule } from 'primeng/table'
 import { InputTextModule } from 'primeng/inputtext'
 import {CheckboxModule} from 'primeng/checkbox';
-import { ButtonModule } from 'primeng/button'
+import { ButtonModule } from 'primeng/button';
+import { WarehouseHeaderComponent } from './warehouse-header/warehouse-header.component'
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ButtonModule } from 'primeng/button'
     SingleContainerComponent,
     ContainerFormComponent,
     ModalComponent,
-    ItemFormComponent
+    ItemFormComponent,
+    WarehouseHeaderComponent
   ],
   imports: [
     BrowserModule,
