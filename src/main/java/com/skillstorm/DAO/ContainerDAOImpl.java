@@ -92,6 +92,32 @@ public class ContainerDAOImpl implements ContainerDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Container> findByItem(String name) {
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) INNER JOIN item USING(container_id) WHERE name LIKE ?";
+		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, name + "%");
+			ResultSet rs = ps.executeQuery();
+			LinkedList<Container> containers = new LinkedList<>();
+			
+			while (rs.next()) {
+				Container container = new Container(rs.getInt("container_id"), rs.getInt("transport_id"), 
+						rs.getInt("warehouse_id"), rs.getString("location"), rs.getString("transport_name"),
+						rs.getInt("transport_size"));
+				containers.add(container);
+			}
+			
+			return containers;
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+
 
 	@Override
 	public Container save(Container container) {
@@ -214,5 +240,6 @@ public class ContainerDAOImpl implements ContainerDAO {
 		}
 		
 	}
+
 
 }

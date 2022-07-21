@@ -62,11 +62,22 @@ public class ContainerServlet extends HttpServlet{
 				resp.getWriter().print(mapper.writeValueAsString(containers));
 			}
 		} catch (Exception e) {
-			Map<String, String[]> params = req.getParameterMap();
 			
-			List<Container> containers = dao.findAll(params.get("sort")[0], params.get("order")[0]);
-			resp.setContentType("application/JSON");
-			resp.getWriter().print(mapper.writeValueAsString(containers));
+			try {
+				Map<String, String[]> params = req.getParameterMap();
+				
+				List<Container> containers = dao.findAll(params.get("sort")[0], params.get("order")[0]);
+				resp.setContentType("application/JSON");
+				resp.getWriter().print(mapper.writeValueAsString(containers));
+				
+			} catch (NullPointerException error) {
+				Map<String, String[]> params = req.getParameterMap();
+				
+				List<Container> containers = dao.findByItem(params.get("item")[0]);
+				resp.setContentType("application/JSON");
+				resp.getWriter().print(mapper.writeValueAsString(containers));
+			}
+			
 		}
 	}
 	

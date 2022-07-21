@@ -10,6 +10,7 @@ public interface ContainerDAO {
 	public List<Container> findAll(String sort, String direction);
 	public List<Container> findByParam(int id);
 	public List<Container> findByParam(String location);
+	public List<Container> findByItem(String name);
 	
 	// Create methods
 	public Container save(Container container);
