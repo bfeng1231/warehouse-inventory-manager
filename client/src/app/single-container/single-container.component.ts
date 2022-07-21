@@ -3,6 +3,7 @@ import { ContainerApiService } from '../services/container-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from "@angular/router";
 import { ItemApiService } from '../services/item-api.service';
+import { WarehouseInfoService } from '../services/warehouse-info.service';
 
 @Component({
     selector: 'app-single-container',
@@ -13,6 +14,7 @@ export class SingleContainerComponent implements OnInit {
 
     service: ContainerApiService
     itemService: ItemApiService
+    warehouseData: WarehouseInfoService
     id: any
     container: any = {}
     edit: boolean = false
@@ -21,9 +23,10 @@ export class SingleContainerComponent implements OnInit {
     currentSpace: number = 0
     itemChecklist: Array<number> = []
 
-    constructor(service: ContainerApiService, itemService: ItemApiService, private route: ActivatedRoute, private router: Router, private cdf: ChangeDetectorRef) { 
+    constructor(service: ContainerApiService, itemService: ItemApiService, private route: ActivatedRoute, private router: Router, warehouseData: WarehouseInfoService) { 
         this.service = service
         this.itemService = itemService
+        this.warehouseData = warehouseData
     }
 
     ngOnInit(): void {
@@ -107,20 +110,28 @@ export class SingleContainerComponent implements OnInit {
     editContainer(data: any): void {
         let size = data.transport
         switch (size) {
-            case 1 :
+            case 1:
                 size = 50
                 break
-            case 2 :
+            case 2:
                 size = 200
                 break
+            case 3:
+                size = 1000
+                break 
         }
         if (this.currentSpace > size)
-            return window.alert("Cannot set a smaller transport type than the current space") 
+            return window.alert("Cannot set a smaller transport type than the current space")
+        
+        let newSpace = this.warehouseData.currentSpace - this.container.transport_size
+        if (newSpace + size > this.warehouseData.totalSpace)
+            return window.alert("Cannot edit transport type to make it larger than the current warehouse space")
 
         this.service.update(data, this.id).subscribe(resp => {
             console.log(resp)
             this.showModal = {state: false, data: {}}
             this.getData()
+            this.warehouseData.updateTotal()
         })
            
     }

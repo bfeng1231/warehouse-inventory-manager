@@ -61,7 +61,7 @@ public class ContainerDAOImpl implements ContainerDAO {
 		
 	@Override
 	public Container findByParam(String location) {
-		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE location = ?";
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE location LIKE ?";
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
