@@ -38,29 +38,28 @@ public class ContainerServlet extends HttpServlet{
 			
 			// Try to convert to int and search by id
 			int id = Integer.parseInt(param[1]);
-			Container container = dao.findByParam(id);
+			List<Container> containers = dao.findByParam(id);
 		
-			if (container == null) {
+			if (containers == null) {
 				resp.setStatus(404);
-				resp.getWriter().print(mapper.writeValueAsString(new Message("No container with that id")));
+				resp.getWriter().print(mapper.writeValueAsString(new Message("No containers with that id")));
 			} else {
 				resp.setContentType("application/JSON");
-				resp.getWriter().print(mapper.writeValueAsString(container));
+				resp.getWriter().print(mapper.writeValueAsString(containers));
 			}
 			
 		} catch (NumberFormatException e) {
 			
 			// Got a string instead, search by location
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
-			Container container = dao.findByParam(param[1]);
+			List<Container> containers = dao.findByParam(param[1]);
 			
-			if (container == null) {
-
+			if (containers == null) {
 				resp.setStatus(404);
-				resp.getWriter().print(mapper.writeValueAsString(new Message("No container with that id")));
+				resp.getWriter().print(mapper.writeValueAsString(new Message("No containers with that location")));
 			} else {
 				resp.setContentType("application/JSON");
-				resp.getWriter().print(mapper.writeValueAsString(container));
+				resp.getWriter().print(mapper.writeValueAsString(containers));
 			}
 		} catch (Exception e) {
 			Map<String, String[]> params = req.getParameterMap();

@@ -8,8 +8,8 @@ public interface ContainerDAO {
 	
 	// Read methods
 	public List<Container> findAll(String sort, String direction);
-	public Container findByParam(int id);
-	public Container findByParam(String location);
+	public List<Container> findByParam(int id);
+	public List<Container> findByParam(String location);
 	
 	// Create methods
 	public Container save(Container container);

@@ -43,16 +43,25 @@ public class ContainerDAOImpl implements ContainerDAO {
 	}
 
 	@Override
-	public Container findByParam(int id) {
-		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE container_id = " + id;
+	public List<Container> findByParam(int id) {
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE container_id LIKE ?";
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
 			
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			if (rs.next())
-				return new Container(rs.getInt("container_id"), rs.getInt("transport_id"), 
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, id + "%");
+			System.out.println(ps);
+			ResultSet rs = ps.executeQuery();
+			LinkedList<Container> containers = new LinkedList<>();
+			
+			while (rs.next()) {
+				Container container = new Container(rs.getInt("container_id"), rs.getInt("transport_id"), 
 						rs.getInt("warehouse_id"), rs.getString("location"), rs.getString("transport_name"),
 						rs.getInt("transport_size"));
+				containers.add(container);
+			}
+			
+			return containers;
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -60,17 +69,23 @@ public class ContainerDAOImpl implements ContainerDAO {
 	}
 		
 	@Override
-	public Container findByParam(String location) {
+	public List<Container> findByParam(String location) {
 		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE location LIKE ?";
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, location);
+			ps.setString(1, location + "%");
 			ResultSet rs = ps.executeQuery();
-			if (rs.next())
-				return new Container(rs.getInt("container_id"), rs.getInt("transport_id"), 
+			LinkedList<Container> containers = new LinkedList<>();
+			
+			while (rs.next()) {
+				Container container = new Container(rs.getInt("container_id"), rs.getInt("transport_id"), 
 						rs.getInt("warehouse_id"), rs.getString("location"), rs.getString("transport_name"),
 						rs.getInt("transport_size"));
+				containers.add(container);
+			}
+			
+			return containers;
 			
 		} catch (Exception e) {
 			// TODO: handle exception
