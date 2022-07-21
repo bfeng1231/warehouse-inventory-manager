@@ -49,7 +49,7 @@ public class ContainerDAOImpl implements ContainerDAO {
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, id + "%");
-			System.out.println(ps);
+
 			ResultSet rs = ps.executeQuery();
 			LinkedList<Container> containers = new LinkedList<>();
 			

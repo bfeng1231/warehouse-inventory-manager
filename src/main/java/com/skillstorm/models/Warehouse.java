@@ -7,17 +7,18 @@ public class Warehouse {
 	private String address;
 	private int zipcode;
 	
-	public Warehouse () {
-		System.out.println("new warehouse");
-	}
+	public Warehouse () {}
 	
-	public Warehouse (int warehouse_id, int warehouse_size , String address, int zipcode) {
-		super();
-		setWarehouse_id(warehouse_id);
+	public Warehouse (int warehouse_size , String address, int zipcode) {
 		setWarehouse_size(warehouse_size);
 		setAddress(address);
 		setZipcode(zipcode);
-		System.out.println(this.toString());
+	}
+	
+	public Warehouse (int warehouse_id, int warehouse_size , String address, int zipcode) {
+		this(warehouse_size, address, zipcode);
+		setWarehouse_id(warehouse_id);
+
 	}
 
 	public int getWarehouse_id() {

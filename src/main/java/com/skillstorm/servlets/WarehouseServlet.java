@@ -1,6 +1,8 @@
 package com.skillstorm.servlets;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,19 +45,85 @@ public class WarehouseServlet extends HttpServlet{
 			}
 				
 		} catch (Exception e) {
-			String[] param = urlService.extractParamFromURL(req.getPathInfo());
-			int id = Integer.parseInt(param[1]);
-			System.out.println(id);
-			Warehouse warehouse = dao.findByParam(id);
 			
-			if (warehouse == null) {
-				resp.setStatus(404);
-				resp.getWriter().print(mapper.writeValueAsString(new Message("No warehouse with that id")));
-			} else {
-				resp.setContentType("application/JSON");
-				resp.getWriter().print(mapper.writeValueAsString(warehouse));
+			try {				
+				String[] param = urlService.extractParamFromURL(req.getPathInfo());
+				int id = Integer.parseInt(param[1]);
+				Warehouse warehouse = dao.findByParam(id);
+				
+				if (warehouse == null) {
+					resp.setStatus(404);
+					resp.getWriter().print(mapper.writeValueAsString(new Message("No warehouse with that id")));
+				} else {
+					resp.setContentType("application/JSON");
+					resp.getWriter().print(mapper.writeValueAsString(warehouse));
+				}
+				
+			} catch (ArrayIndexOutOfBoundsException error) {
+				List<Warehouse> warehouses = dao.findAll();
+				if (warehouses == null) {
+					resp.setStatus(404);
+					resp.getWriter().print(mapper.writeValueAsString(new Message("No warehouses")));
+				} else {
+					resp.setContentType("application/JSON");
+					resp.getWriter().print(mapper.writeValueAsString(warehouses));
+				}
 			}
+			
 		}
 		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		InputStream reqBody = req.getInputStream();
+		Warehouse warehouse = mapper.readValue(reqBody, Warehouse.class);
+		System.out.println(warehouse.toString());	
+		warehouse = dao.save(warehouse);
+		
+		if (warehouse == null) {
+			resp.setStatus(400);
+			resp.getWriter().print(mapper.writeValueAsString(new Message("Error creating container")));
+		} else {
+			resp.setStatus(201);
+			resp.setContentType("application/JSON");
+			resp.getWriter().print(mapper.writeValueAsString(warehouse));
+		}
+	}
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		InputStream reqBody = req.getInputStream();
+		Warehouse warehouse = mapper.readValue(reqBody, Warehouse.class);
+
+		warehouse = dao.update(warehouse);
+		
+		if (warehouse == null) {
+			resp.setStatus(400);
+			resp.getWriter().print(mapper.writeValueAsString(new Message("Error updating container")));
+		} else {
+			resp.setStatus(201);
+			resp.setContentType("application/JSON");
+			resp.getWriter().print(mapper.writeValueAsString(warehouse));
+		}
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		try {
+			String[] param = urlService.extractParamFromURL(req.getPathInfo());
+			
+			int id = Integer.parseInt(param[1]);
+			if (dao.delete(id)) {
+				resp.setStatus(200);
+				resp.getWriter().print(mapper.writeValueAsString(new Message("Sucessfully deleted warehouse with id " + id)));
+			} else {
+				resp.setStatus(400);
+				resp.getWriter().print(mapper.writeValueAsString(new Message("Unable to delete warehouse")));
+			}
+
+		} catch (Exception e) {
+			
+		}
 	}
 }

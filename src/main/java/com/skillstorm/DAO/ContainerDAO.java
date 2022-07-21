@@ -21,4 +21,5 @@ public interface ContainerDAO {
 	// Delete methods
 	public boolean delete(int id);
 	public void deleteMany(int[] ids);
+	
 }
