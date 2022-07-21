@@ -1,16 +1,26 @@
 .searchbar {
     display: flex;
-    justify-content: center;
     margin-bottom: 50px;
+    flex-direction: column;
     align-items: center;
 }
 
 .searchbar > div {
+    width: 25%;
+}
+
+section {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+section > div {
     font-size: 18px;
     margin-right: 5px;
 }
 
 input {
-    width: 25%;
     height: 30px;
+    flex: 1;
 }

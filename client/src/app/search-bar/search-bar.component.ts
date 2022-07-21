@@ -16,9 +16,9 @@ export class SearchBarComponent implements OnInit {
     }
 
     searchTerm(value: any) {
-        // this.search.input = value
-        // console.log(this.search)
-
-        this.searchEvent.emit(value) 
+        this.search.input = value
+        console.log(this.search)
+        
+        this.searchEvent.emit(this.search) 
     }
 }

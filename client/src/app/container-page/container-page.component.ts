@@ -81,12 +81,21 @@ export class ContainerPageComponent implements OnInit {
     }
 
     searchContainers(data: any) {
-        if (data == '')
-            this.getData()
-        else
-            this.service.findByTerm(data).subscribe(resp => {
+
+        if (data.input == '')
+             return this.getData()
+
+        if (data.type == 'item') {
+            this.service.findByItem(data.input).subscribe(resp => {
                 console.log(resp)
                 this.containers = resp
             })
+        }
+        else {
+            this.service.findByTerm(data.input).subscribe(resp => {
+                console.log(resp)
+                this.containers = resp
+            })
+        }
     }
 }

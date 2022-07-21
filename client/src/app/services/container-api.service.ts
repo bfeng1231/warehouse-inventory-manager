@@ -23,6 +23,11 @@ export class ContainerApiService {
         return this.http.get(environment.apiUrl + "containers/" + term)
     }
 
+    findByItem(term: any): Observable<any> {
+        return this.http.get(environment.apiUrl + `containers/?item=${term}`)
+    }
+
+
     delete(id: number): Observable<any> {
         return this.http.delete(environment.apiUrl + "containers/" + id)
     }

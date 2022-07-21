@@ -1,99 +1,55 @@
 <div *ngIf="items.length != 0 ; else showEmpty">
-<!-- <div *ngIf="!edit ; else showEdit">
-    <table *ngIf="items.length != 0">
-        <thead>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Amount</th>
-            <th>Date</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let elem of items">
+
+    <p-table [value]="items">
+        <ng-template pTemplate="header">
+            <tr>
+                <th *ngIf="edit"></th>
+                <th>ID
+                    <div class="pi pi-sort-alpha-down" (click)="sort({sort: 'item_id', order: 'desc'})" *ngIf="this.sortState.id_asc ; else id"></div>
+                    <ng-template #id>
+                        <div class="pi pi-sort-alpha-up" (click)="sort({sort: 'item_id', order: 'asc'})"></div>
+                    </ng-template>
+                </th>
+                <th>Name
+                    <div class="pi pi-sort-alpha-down" (click)="sort({sort: 'name', order: 'desc'})" *ngIf="this.sortState.name_asc ; else name"></div>
+                    <ng-template #name>
+                        <div class="pi pi-sort-alpha-up" (click)="sort({sort: 'name', order: 'asc'})"></div>
+                    </ng-template>
+                </th>
+                <th>Size
+                    <div class="pi pi-sort-numeric-down" (click)="sort({sort: 'size', order: 'desc'})" *ngIf="this.sortState.size_asc ; else size"></div>
+                    <ng-template #size>
+                        <div class="pi pi-sort-numeric-up" (click)="sort({sort: 'size', order: 'asc'})"></div>
+                    </ng-template>
+                </th>
+                <th>Amount
+                    <div class="pi pi-sort-numeric-down" (click)="sort({sort: 'units', order: 'desc'})" *ngIf="this.sortState.amount_asc ; else amount"></div>
+                    <ng-template #amount>
+                        <div class="pi pi-sort-numeric-up" (click)="sort({sort: 'units', order: 'asc'})"></div>
+                    </ng-template>
+                </th>
+                <th>Date
+                    <div class="pi pi-sort-numeric-down" (click)="sort({sort: 'datetime', order: 'desc'})" *ngIf="this.sortState.date_asc ; else date"></div>
+                    <ng-template #date>
+                        <div class="pi pi-sort-numeric-up" (click)="sort({sort: 'datetime', order: 'asc'})"></div>
+                    </ng-template>
+                </th>
+                <th *ngIf="edit"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-elem>
+            <tr>
+                <td *ngIf="edit"><input type="checkbox" (change)="itemChecklistHandler(elem.item_id)"></td>
                 <td>{{ elem.item_id }}</td>
                 <td>{{ elem.name }}</td>
-                <td>{{ elem.size }} ft<sup>3</sup></td>
+                <td>{{ elem.size }} ft<sup>3</sup></td> 
                 <td>{{ elem.units }}</td>
-                <td>{{ elem.datetime | date: 'short' }}</td>
+                <td>{{ elem.datetime | date: 'short'}}</td>
+                    <td *ngIf="edit"><div (click)="openModal(elem)" class="pi pi-cog"></div></td>
             </tr>
-        </tbody>
-    </table>
-</div> -->
+        </ng-template> 
+    </p-table>
 
-<p-table [value]="items" *ngIf="!edit ; else showEdit">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Amount</th>
-            <th>Date</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-elem>
-        <tr>
-            <td>{{ elem.item_id }}</td>
-            <td>{{ elem.name }}</td>
-            <td>{{ elem.size }} ft<sup>3</sup></td> 
-            <td>{{ elem.units }}</td>
-            <td>{{ elem.datetime | date: 'short'}}</td>
-        </tr>
-    </ng-template> 
-</p-table>
-
-<ng-template #showEdit>
-<p-table [value]="items">
-    <ng-template pTemplate="header">
-        <tr>
-            <th></th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Amount</th>
-            <th>Date</th>
-            <th></th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-elem>
-        <tr>
-            <!-- <td><p-checkbox (onChange)="itemChecklistHandler(elem.item_id)" ></p-checkbox></td> -->
-            <td><input type="checkbox" (change)="itemChecklistHandler(elem.item_id)"></td>
-            <td>{{ elem.item_id }}</td>
-            <td>{{ elem.name }}</td>
-            <td>{{ elem.size }} ft<sup>3</sup></td> 
-            <td>{{ elem.units }}</td>
-            <td>{{ elem.datetime | date: 'short'}}</td>
-            <td><div (click)="openModal(elem)" class="pi pi-cog"></div></td>
-        </tr>
-    </ng-template> 
-</p-table>
-</ng-template>
-
-<!-- <ng-template #showEdit>
-    <div>
-        <table *ngIf="items.length != 0">
-            <thead>
-                <th></th>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Size</th>
-                <th>Amount</th>
-                <th>Date</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let elem of items">
-                    <td><input type="checkbox" (change)="itemChecklistHandler(elem.item_id)"></td>
-                    <td>{{ elem.item_id }}</td>
-                    <td>{{ elem.name }}</td>
-                    <td>{{ elem.size }} ft<sup>3</sup></td>
-                    <td>{{ elem.units }}</td>
-                    <td>{{ elem.datetime | date: 'short' }}</td>
-                    <td><button (click)="openModal(elem)">Edit</button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</ng-template> -->
 </div>
 
 <ng-template #showEmpty>

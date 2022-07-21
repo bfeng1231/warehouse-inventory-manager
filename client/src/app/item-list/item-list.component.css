@@ -13,10 +13,9 @@ tr:hover {
     background-color: lightgray;
 }
 
-/* td {
-    padding: 5px;
-    
-} */
+th > div:hover {
+    cursor: pointer;
+}
 
 td > input {
     height: 15px;

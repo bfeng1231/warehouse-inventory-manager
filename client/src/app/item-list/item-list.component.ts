@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ItemApiService } from '../services/item-api.service';
+import { SortService } from '../services/sort.service';
 
 @Component({
     selector: 'app-item-list',
@@ -19,9 +20,12 @@ export class ItemListComponent implements OnInit {
     @Output() onChangeEvent = new EventEmitter<Array<number>>()
     @Input() itemChecklist: Array<number> = []
     @Output() onClickEvent = new EventEmitter<any>()
+    sortBy: any = {sort: "item_id", order: "asc"}
+    sortState: any
 
-    constructor(service: ItemApiService) { 
+    constructor(service: ItemApiService, sortState: SortService) { 
         this.service = service
+        this.sortState = sortState
     }
 
     ngOnInit(): void {
@@ -34,7 +38,7 @@ export class ItemListComponent implements OnInit {
     }
 
     getData() {
-        this.service.findAll(this.id, "item_id", "asc").subscribe(resp => {
+        this.service.findAll(this.id, this.sortBy.sort, this.sortBy.order).subscribe(resp => {
             console.log(resp)
             this.items = resp
             this.service.recall = false
@@ -52,4 +56,9 @@ export class ItemListComponent implements OnInit {
         this.onClickEvent.emit(data)
     }
 
+    sort(data: any) {
+        this.sortBy = {...data}
+        this.sortState.switchStates(data.sort)
+        this.getData()
+    }
 }
