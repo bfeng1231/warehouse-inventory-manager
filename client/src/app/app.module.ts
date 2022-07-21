@@ -14,7 +14,8 @@ import { TableModule } from 'primeng/table'
 import { InputTextModule } from 'primeng/inputtext'
 import {CheckboxModule} from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
-import { WarehouseHeaderComponent } from './warehouse-header/warehouse-header.component'
+import { WarehouseHeaderComponent } from './warehouse-header/warehouse-header.component';
+import { SearchBarComponent } from './search-bar/search-bar.component'
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { WarehouseHeaderComponent } from './warehouse-header/warehouse-header.co
     ContainerFormComponent,
     ModalComponent,
     ItemFormComponent,
-    WarehouseHeaderComponent
+    WarehouseHeaderComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,

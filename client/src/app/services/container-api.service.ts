@@ -19,8 +19,8 @@ export class ContainerApiService {
         return this.http.get(environment.apiUrl + `containers/?sort=${sort}&order=${order}`)
     }
     
-    findById(id: number): Observable<any> {
-        return this.http.get(environment.apiUrl + "containers/" + id)
+    findByTerm(term: any): Observable<any> {
+        return this.http.get(environment.apiUrl + "containers/" + term)
     }
 
     delete(id: number): Observable<any> {

@@ -26,10 +26,19 @@ export class ItemListComponent implements OnInit {
 
     ngOnInit(): void {
         console.log("Getting items for container", this.id)
+        this.getData()
+        setInterval(() => {
+            if (this.service.recall)
+               this.getData()
+        }, 2000)
+    }
+
+    getData() {
         this.service.findAll(this.id, "item_id", "asc").subscribe(resp => {
             console.log(resp)
-            this.items = resp})
-           
+            this.items = resp
+            this.service.recall = false
+        })
     }
 
     itemChecklistHandler(id: number): void {

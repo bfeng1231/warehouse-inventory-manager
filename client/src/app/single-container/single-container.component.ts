@@ -35,9 +35,9 @@ export class SingleContainerComponent implements OnInit {
 
     getData() {
         this.id = this.route.snapshot.paramMap.get('id')
-        this.service.findById(this.id)
+        this.service.findByTerm(this.id)
             .subscribe({
-                next: resp => {this.container = resp
+                next: resp => {this.container = resp[0]
                 console.log(resp)},
                 error: err => {this.router.navigate([''])}
             })
@@ -103,6 +103,8 @@ export class SingleContainerComponent implements OnInit {
     deleteItems(data: any): void {
         this.itemService.delete(data).subscribe(resp => {
             console.log(resp)
+            this.itemService.recall = true
+            this.itemChecklist = []
             this.showModal = {state: false, data: {}}
         })
     }

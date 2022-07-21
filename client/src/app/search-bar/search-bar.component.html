@@ -1,0 +1,14 @@
+<div class="searchbar">
+    <!-- <div>
+        <form>
+            <label>Search By </label>
+            <select id="type" name="type" [(ngModel)]="search">
+                <option [ngValue]="{type: 'container_id'}">ID</option>
+                <option [ngValue]="{type: 'container_location'}">Location</option>
+            </select>
+        </form>
+    </div> -->
+
+    <div class="pi pi-search"></div><input type="text" name="search" (keyup)="searchTerm(searchbar.value)" #searchbar>
+
+</div>

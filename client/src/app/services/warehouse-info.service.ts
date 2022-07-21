@@ -7,9 +7,11 @@ export class WarehouseInfoService {
 
     currentSpace: number = 0
     totalSpace: number = 0
-    recall: boolean = false
+    recall: boolean
 
-    constructor() { }
+    constructor() { 
+        this.recall = false
+    }
 
     updateTotal() {
         this.recall = true

@@ -20,17 +20,19 @@ export class ContainerPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getData()
+    }
+
+    getData() {
         this.service.findAll('container_id', 'asc').subscribe(resp => {
             console.log(resp)
             this.containers = resp})
     }
 
-    updateView(container: any): void {
-        this.containers.push(container)
-        this.service.findAll('container_id', 'asc').subscribe(resp => {
-            console.log(resp)
-            this.containers = resp})
-    }
+    // updateView(container: any): void {
+    //     this.containers.push(container)
+    //     this.getData()
+    // }
 
     displayModal(data: any): void {
         console.log("Open modal")
@@ -70,11 +72,21 @@ export class ContainerPageComponent implements OnInit {
             .subscribe({
                 next: resp => {
                         console.log(resp)
-                        this.updateView(resp)
+                        this.containers.push(resp)
+                        this.getData()
                     },
                 error: err => {window.alert("A container already exists on that location")}
             })
         this.showModal = {state: false, data: {}}
     }
 
+    searchContainers(data: any) {
+        if (data == '')
+            this.getData()
+        else
+            this.service.findByTerm(data).subscribe(resp => {
+                console.log(resp)
+                this.containers = resp
+            })
+    }
 }

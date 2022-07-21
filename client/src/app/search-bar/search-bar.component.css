@@ -1,0 +1,16 @@
+.searchbar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    align-items: center;
+}
+
+.searchbar > div {
+    font-size: 18px;
+    margin-right: 5px;
+}
+
+input {
+    width: 25%;
+    height: 30px;
+}

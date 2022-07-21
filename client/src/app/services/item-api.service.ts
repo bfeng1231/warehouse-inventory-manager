@@ -9,9 +9,11 @@ import { environment } from 'src/environments/environment';
 export class ItemApiService {
 
     http: HttpClient
+    recall: boolean
 
     constructor(http: HttpClient) { 
         this.http = http
+        this.recall = false
     }
   
     findAll(id: number, sort: string, order: string): Observable<any> {
