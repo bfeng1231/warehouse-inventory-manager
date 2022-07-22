@@ -16,6 +16,7 @@ export class ItemFormComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
+        // Found existing data so we editing an item, populate the fields
         if (this.data.hasOwnProperty('item')) {
             this.itemFormData = {
                 item_id: this.data.item.item_id,

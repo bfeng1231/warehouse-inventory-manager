@@ -15,18 +15,19 @@ export class ContainerApiService {
         this.http = http
     }
 
-    findAll(sort: string, order: string): Observable<any> {
-        return this.http.get(environment.apiUrl + `containers/?sort=${sort}&order=${order}`)
-    }
-    
-    findByTerm(term: any): Observable<any> {
-        return this.http.get(environment.apiUrl + "containers/" + term)
+    findAll(id: number, sort: string, order: string): Observable<any> {
+        return this.http.get(environment.apiUrl + `containers/?id=${id}&sort=${sort}&order=${order}`)
     }
 
-    findByItem(term: any): Observable<any> {
-        return this.http.get(environment.apiUrl + `containers/?item=${term}`)
+    // Look for a container that has the inputted location or id
+    findByTerm(id: number, term: any): Observable<any> {
+        return this.http.get(environment.apiUrl + `containers/${term}?id=${id}`)
     }
 
+    // Look for a container that has the specified item
+    findByItem(id: number, term: any): Observable<any> {
+        return this.http.get(environment.apiUrl + `containers/?id=${id}&item=${term}`)
+    }
 
     delete(id: number): Observable<any> {
         return this.http.delete(environment.apiUrl + "containers/" + id)
@@ -35,7 +36,7 @@ export class ContainerApiService {
     save(data: any): Observable<any> {
         let body = {
             transport_id: data.transport,
-            warehouse_id: 1,
+            warehouse_id: data.warehouse_id,
             location: data.location
         }
         return this.http.post(environment.apiUrl + "containers/", body)
@@ -45,7 +46,7 @@ export class ContainerApiService {
         let body = {
             id,
             transport_id: data.transport,
-            warehouse_id: 1,
+            warehouse_id: data.warehouse_id,
             location: data.location
         }
         return this.http.put(environment.apiUrl + "containers/", body)

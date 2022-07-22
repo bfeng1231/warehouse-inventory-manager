@@ -23,6 +23,8 @@ export class SortService {
         this.date_asc = true
     }
 
+    // This is cancerous, would not recommend.
+    // Recieves the sorting type and adjusts all the states accordingly
     switchStates(type: string) {
         let current
         switch (type) {

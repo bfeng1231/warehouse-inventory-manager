@@ -1,0 +1,18 @@
+<div class="form-container">   
+    <header *ngIf="data.hasOwnProperty('warehouse'); else addWarehouse">Edit Warehouse #{{data.warehouse.id}}</header>
+    <ng-template #addWarehouse>
+        <header>Add a new warehouse</header>
+    </ng-template>
+    <section *ngIf="error">{{ message }}</section>
+    <form (ngSubmit)="onSubmit(warehouseFormData)">
+        <label for="size">Capacity</label>
+        <div>
+            <input type="number" id="size" name="size" [(ngModel)]="warehouseFormData.warehouse_size"><span>ft<sup>3</sup></span>
+        </div>
+        <label for="address">Address</label>
+        <input type="text" id="address" name="address" [(ngModel)]="warehouseFormData.address">
+        <label for="zipcode">Zipcode</label>
+        <input type="number" id="zipcode" name="zipcode" [(ngModel)]="warehouseFormData.zipcode">
+        <input type="submit" value="Submit" class="submit-button">
+    </form>
+</div>

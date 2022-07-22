@@ -30,6 +30,14 @@ public class ContainerServlet extends HttpServlet{
 	ObjectMapper mapper = new ObjectMapper();
 	URLParserService urlService = new URLParserService();
 
+	/**
+	 * @param Takes in query parameters from the url
+	 * @return Returns a list of containers depending on the parameters inputed
+	 * @throws Throws a NumberFormatException if trying to parse the query param into an int.
+	 * 			This means that the url received a string instead.
+	 * @throws Throws an ArrayIndexOutOfBoundsException if there were no params to extract, so we get all containers
+	 * @throws Throws a NullPointerException if we did not get the sorting data, so we search for items in containers
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -38,7 +46,11 @@ public class ContainerServlet extends HttpServlet{
 			
 			// Try to convert to int and search by id
 			int id = Integer.parseInt(param[1]);
-			List<Container> containers = dao.findByParam(id);
+			
+			Map<String, String[]> params = req.getParameterMap();
+			int wh_id = Integer.parseInt(params.get("id")[0]);
+			
+			List<Container> containers = dao.findByParam(id, wh_id);
 		
 			if (containers == null) {
 				resp.setStatus(404);
@@ -50,9 +62,12 @@ public class ContainerServlet extends HttpServlet{
 			
 		} catch (NumberFormatException e) {
 			
-			// Got a string instead, search by location
+			// Got a string instead, so search by location
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
-			List<Container> containers = dao.findByParam(param[1]);
+			Map<String, String[]> params = req.getParameterMap();
+			
+			int id = Integer.parseInt(params.get("id")[0]);
+			List<Container> containers = dao.findByParam(param[1], id);
 			
 			if (containers == null) {
 				resp.setStatus(404);
@@ -62,18 +77,21 @@ public class ContainerServlet extends HttpServlet{
 				resp.getWriter().print(mapper.writeValueAsString(containers));
 			}
 		} catch (Exception e) {
-			
+			// There were no parameters to extract from the url, so get all the containers
 			try {
 				Map<String, String[]> params = req.getParameterMap();
-				
-				List<Container> containers = dao.findAll(params.get("sort")[0], params.get("order")[0]);
+				int id = Integer.parseInt(params.get("id")[0]);
+
+				List<Container> containers = dao.findAll(id, params.get("sort")[0], params.get("order")[0]);
 				resp.setContentType("application/JSON");
 				resp.getWriter().print(mapper.writeValueAsString(containers));
 				
 			} catch (NullPointerException error) {
+				// There were not enough query parameters so we are searching for items in containers
 				Map<String, String[]> params = req.getParameterMap();
+				int id = Integer.parseInt(params.get("id")[0]);
 				
-				List<Container> containers = dao.findByItem(params.get("item")[0]);
+				List<Container> containers = dao.findByItem(params.get("item")[0], id);
 				resp.setContentType("application/JSON");
 				resp.getWriter().print(mapper.writeValueAsString(containers));
 			}
@@ -81,6 +99,9 @@ public class ContainerServlet extends HttpServlet{
 		}
 	}
 	
+	/**
+	 * Saves a container to the database
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		InputStream reqBody = req.getInputStream();

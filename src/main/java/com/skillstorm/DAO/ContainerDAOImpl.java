@@ -13,12 +13,16 @@ import com.skillstorm.conf.WarehouseDBcreds;
 import com.skillstorm.models.Container;
 
 public class ContainerDAOImpl implements ContainerDAO {
-
+	
+	/**
+	 * @param Takes in column to sort by and the direction to sort it, asc or desc
+	 * @return Returns the full list of containers with the specified warehouse id. Returns null if nothing is found
+	 */
 	@Override
-	public List<Container> findAll(String sort, String direction) {
-		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) ";
+	public List<Container> findAll(int id, String sort, String direction) {
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE warehouse_id = " + id;
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
-			String sortBy = "ORDER BY " + sort + " " + direction;
+			String sortBy = " ORDER BY " + sort + " " + direction;
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql + sortBy);
 			LinkedList<Container> containers = new LinkedList<>();
@@ -42,13 +46,19 @@ public class ContainerDAOImpl implements ContainerDAO {
 		return null;
 	}
 
+	/**
+	 * Used for the front-end search bar
+	 * @param Takes in warehouse id and the container id to search for
+	 * @return Returns a list of containers that have that number in the id. Returns null if nothing is found.
+	 */
 	@Override
-	public List<Container> findByParam(int id) {
-		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE container_id LIKE ?";
+	public List<Container> findByParam(int id, int wh_id) {
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE warehouse_id = ? AND container_id LIKE ?";
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, id + "%");
+			ps.setInt(1, wh_id);
+			ps.setString(2, id + "%");
 
 			ResultSet rs = ps.executeQuery();
 			LinkedList<Container> containers = new LinkedList<>();
@@ -67,14 +77,20 @@ public class ContainerDAOImpl implements ContainerDAO {
 		}
 		return null;
 	}
-		
+	
+	/**
+	 * Used for the front-end search bar
+	 * @param Takes in warehouse id and the location to search for
+	 * @return Returns a list of containers that have that location in the id. Returns null if nothing is found.
+	 */
 	@Override
-	public List<Container> findByParam(String location) {
-		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE location LIKE ?";
+	public List<Container> findByParam(String location, int wh_id) {
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) WHERE warehouse_id = ? AND location LIKE ?";
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, location + "%");
+			ps.setInt(1, wh_id);
+			ps.setString(2, location + "%");
 			ResultSet rs = ps.executeQuery();
 			LinkedList<Container> containers = new LinkedList<>();
 			
@@ -93,13 +109,19 @@ public class ContainerDAOImpl implements ContainerDAO {
 		return null;
 	}
 	
+	/**
+	 * Used for the front-end search bar
+	 * @param Takes in warehouse id and the name to search for
+	 * @return Returns a list of containers while searching for the string. Returns null if nothing is found.
+	 */
 	@Override
-	public List<Container> findByItem(String name) {
-		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) INNER JOIN item USING(container_id) WHERE name LIKE ?";
+	public List<Container> findByItem(String name, int wh_id) {
+		String sql = "SELECT * FROM container INNER JOIN transport USING(transport_id) INNER JOIN item USING(container_id) WHERE warehouse_id = ? AND name LIKE ?";
 		try (Connection conn = WarehouseDBcreds.getInstance().getConnection()) {
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, name + "%");
+			ps.setInt(1, wh_id);
+			ps.setString(2, name + "%");
 			ResultSet rs = ps.executeQuery();
 			LinkedList<Container> containers = new LinkedList<>();
 			
@@ -210,6 +232,10 @@ public class ContainerDAOImpl implements ContainerDAO {
 		return false;
 	}
 
+	/**
+	 * Used to delete several ids in the container database
+	 * @param Takes in an array of ids
+	 */
 	@Override
 	public void deleteMany(int[] ids) {
 		String sql = "DELETE FROM container WHERE container_id = ?";

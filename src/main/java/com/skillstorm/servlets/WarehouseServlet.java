@@ -29,8 +29,14 @@ public class WarehouseServlet extends HttpServlet{
 	ObjectMapper mapper = new ObjectMapper();
 	URLParserService urlService = new URLParserService();
 	
+	/**
+	 * @return Returns different data to the front end depending on what parameters are inserted
+	 * @throws Throws an ArrayIndexOutOfBoundsException if there is only 1 parameter
+	 * @throws Throws another ArrayIndexOutOfBoundsException if there are no parameter in the nested try catch
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// Check the url if we are getting the total space currently inside the warehouse
 		try {
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
 			int id = Integer.parseInt(param[1]);
@@ -45,7 +51,7 @@ public class WarehouseServlet extends HttpServlet{
 			}
 				
 		} catch (Exception e) {
-			
+			// Only 1 param so we look for a specific warehouse
 			try {				
 				String[] param = urlService.extractParamFromURL(req.getPathInfo());
 				int id = Integer.parseInt(param[1]);
@@ -60,6 +66,7 @@ public class WarehouseServlet extends HttpServlet{
 				}
 				
 			} catch (ArrayIndexOutOfBoundsException error) {
+				// No params received so we search for all warehouses
 				List<Warehouse> warehouses = dao.findAll();
 				if (warehouses == null) {
 					resp.setStatus(404);

@@ -7,10 +7,10 @@ import com.skillstorm.models.Container;
 public interface ContainerDAO {
 	
 	// Read methods
-	public List<Container> findAll(String sort, String direction);
-	public List<Container> findByParam(int id);
-	public List<Container> findByParam(String location);
-	public List<Container> findByItem(String name);
+	public List<Container> findAll(int id, String sort, String direction);
+	public List<Container> findByParam(int id, int wh_id);
+	public List<Container> findByParam(String location, int wh_id);
+	public List<Container> findByItem(String name, int wh_id);
 	
 	// Create methods
 	public Container save(Container container);

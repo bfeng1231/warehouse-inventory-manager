@@ -1,9 +1,14 @@
+<!-- 
+    Used for displaying a custom modal that shows either form data or a confirmation message 
+    data.type determines which form/message to show
+-->
 <div class="background">
     <div class="modal">
         <nav><div (click)="closeModal()" class="pi pi-times"></div></nav>
         <main>
             <app-container-form *ngIf="data.type == 'form'" (submitEvent)="addData($event)" [data]="data"></app-container-form>
             <app-item-form *ngIf="data.type == 'itemForm'" (submitEvent)="addData($event)" [data]="data"></app-item-form>
+            <app-warehouse-form *ngIf="data.type == 'warehouseForm'" (submitEvent)="addData($event)" [data]="data"></app-warehouse-form>
 
             <div name="modal" *ngIf="data.type == 'delete'">
                 <header>Delete container #{{ data.id }}</header>
@@ -18,6 +23,16 @@
             <div name="modal" *ngIf="data.type == 'deleteItems'">
                 <header>Delete items</header>
                 <div>Are you sure you want to delete these items?</div>
+                <footer>
+                    <button (click)="closeModal()" pButton class="p-button-danger">Cancel</button>
+                    <button (click)="deleteData(data)" pButton class="p-button-success">Confirm</button>                   
+                </footer>
+            </div>
+
+            <div name="modal" *ngIf="data.type == 'deleteWarehouse'">
+                <header>Delete warehouse #{{ data.id }}</header>
+                <div>Are you sure you want to delete this warehouse?</div>
+                <div>All items inside will also be deleted.</div>
                 <footer>
                     <button (click)="closeModal()" pButton class="p-button-danger">Cancel</button>
                     <button (click)="deleteData(data)" pButton class="p-button-success">Confirm</button>                   

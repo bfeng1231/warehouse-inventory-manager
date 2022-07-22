@@ -31,9 +31,13 @@ public class ItemServlet extends HttpServlet{
 	ObjectMapper mapper = new ObjectMapper();
 	URLParserService urlService = new URLParserService();
 
+	/**
+	 * @return Returns a list of items, a single item, or an integer depending on the extracted params
+	 * 			and the query parameters
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		// Check url params if we need the total amount of space the items are taking up
 		try {			
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
 			int id = Integer.parseInt(param[1]);
@@ -48,7 +52,7 @@ public class ItemServlet extends HttpServlet{
 				resp.getWriter().print(mapper.writeValueAsString(new Message("Not a valid url")));	
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			
+			// Only 1 param extracted so we get all the items in the container
 			try {
 				
 				String[] param = urlService.extractParamFromURL(req.getPathInfo());
@@ -61,7 +65,7 @@ public class ItemServlet extends HttpServlet{
 				resp.getWriter().print(mapper.writeValueAsString(items));
 				
 			} catch (NullPointerException error) {
-				
+				// There is no sorting data, so we look for a specific item with the id
 				String[] param = urlService.extractParamFromURL(req.getPathInfo());
 				int id = Integer.parseInt(param[1]);
 				Item item = dao.findByParam(id);
@@ -117,10 +121,14 @@ public class ItemServlet extends HttpServlet{
 		}
 	}
 	
+	/**
+	 * Deletes several ids from the database
+	 * @param Takes in the body from the http request which is an array of ids
+	 */
 	@Override
 	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-			//String[] param = urlService.extractParamFromURL(req.getPathInfo());
+
 			
 			InputStream reqBody = req.getInputStream();
 			RequestObj ids = mapper.readValue(reqBody, RequestObj.class);
@@ -132,14 +140,6 @@ public class ItemServlet extends HttpServlet{
 				resp.setStatus(400);
 				resp.getWriter().print(mapper.writeValueAsString(new Message("Unable to delete items")));
 			}
-			//int id = Integer.parseInt(param[1]);
-//			if (dao.delete(id)) {
-//				resp.setStatus(200);
-//				resp.getWriter().print(mapper.writeValueAsString(new Message("Sucessfully deleted item with id " + id)));
-//			} else {
-//				resp.setStatus(400);
-//				resp.getWriter().print(mapper.writeValueAsString(new Message("Unable to delete item")));
-//			}
 
 		} catch (Exception e) {
 			

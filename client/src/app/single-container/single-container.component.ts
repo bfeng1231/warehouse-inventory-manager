@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContainerApiService } from '../services/container-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from "@angular/router";
@@ -16,6 +16,7 @@ export class SingleContainerComponent implements OnInit {
     itemService: ItemApiService
     warehouseData: WarehouseInfoService
     id: any
+    wh_id: any
     container: any = {}
     edit: boolean = false
     showModal: any = {state: false, data: {}}
@@ -34,8 +35,10 @@ export class SingleContainerComponent implements OnInit {
     }
 
     getData() {
-        this.id = this.route.snapshot.paramMap.get('id')
-        this.service.findByTerm(this.id)
+        // Recieves the ids from the url using ActivatedRoute
+        this.id = this.route.snapshot.paramMap.get('container-id')
+        this.wh_id = this.route.snapshot.paramMap.get('warehouse-id')
+        this.service.findByTerm(this.wh_id, this.id)
             .subscribe({
                 next: resp => {this.container = resp[0]
                 console.log(resp)},
@@ -58,16 +61,17 @@ export class SingleContainerComponent implements OnInit {
     }
 
     addItem(data: any): void {
-        console.log(data)      
+        console.log(data)    
+        // Recieved an id for an existing item, so we are editing it  
         if (data.hasOwnProperty("item_id")) {
-            console.log('Exisiting item')
             let currentItem
             this.itemService.findById(data.item_id).subscribe(resp => {
                 let newSpace = 0
                 currentItem = resp
                 newSpace = this.currentSpace - (currentItem.units * currentItem.size)
+                // Check if we are trying to increase the amount of an item than the container can currently hold
                 if ((data.size * data.amount) + newSpace > this.container.transport_size) {                                
-                    return window.alert("Unable to add item due to insufficant amount of space")        
+                    return window.alert("Unable to apply changes to item due to insufficant amount of space")        
                 }
                 this.itemService.update(data, this.id)
                     .subscribe({
@@ -83,6 +87,7 @@ export class SingleContainerComponent implements OnInit {
             })                    
         }
         else {
+            // Check if a new item can fit inside the container
             if ((data.size * data.amount) + this.currentSpace > this.container.transport_size)
                 return window.alert("Unable to add item due to insufficant amount of space")
             this.currentSpace += (data.size * data.amount)
@@ -110,6 +115,8 @@ export class SingleContainerComponent implements OnInit {
     }
 
     editContainer(data: any): void {
+        data = {...data, warehouse_id: this.wh_id}
+        // Get the container size based on the transport type
         let size = data.transport
         switch (size) {
             case 1:
@@ -133,6 +140,7 @@ export class SingleContainerComponent implements OnInit {
             console.log(resp)
             this.showModal = {state: false, data: {}}
             this.getData()
+            // Updates the warehouse header information
             this.warehouseData.updateTotal()
         })
            
