@@ -52,7 +52,7 @@ export class WarehouseFormComponent implements OnInit {
             return
         }
 
-        if (warehouse.zipcode+''.search('[0-9]{5}') == -1 || warehouse.zipcode > 99999) {
+        if (warehouse.zipcode < 10000 || warehouse.zipcode > 99999) {
             this.error = true
             this.message = 'A zipcode must have 5 numbers'
             return
