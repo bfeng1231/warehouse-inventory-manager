@@ -1,0 +1,10 @@
+header > div {
+    padding: 10px;
+    font-size: 30px;
+    background-color: rgb(29, 30, 31);
+}
+
+a , a:visited {
+    text-decoration: none;
+    color: white;
+}
