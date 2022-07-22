@@ -1,4 +1,10 @@
 <app-warehouse-header></app-warehouse-header>
+<nav>
+    <a [routerLink]="['']"><div class="pi pi-arrow-left"></div> Back to warehouses</a>
+    <button (click)="displayModal({type: 'warehouseForm', warehouse})" pButton class="p-button-warning">
+        <div class="pi pi-pencil"></div>Edit Warehouse
+    </button>
+</nav>
 <app-search-bar (searchEvent)="searchContainers($event)"></app-search-bar>
 <div class="container-page">
     <div *ngFor="let elem of containers" class="container">
@@ -37,5 +43,6 @@
 <app-modal *ngIf="showModal.state" [data]="showModal.data" 
         (deleteContainerEvent)="deleteContainer($event)" 
         (closeEvent)="displayModal({})"
-        (sumbitContainerEvent)="addContainer($event)">
+        (sumbitContainerEvent)="addContainer($event)"
+        (submitWarehouseEvent)="editWarehouse($event)">
     </app-modal>

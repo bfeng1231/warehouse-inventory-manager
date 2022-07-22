@@ -1,13 +1,35 @@
-<div *ngFor="let elem of warehoueses">
-    <header>{{ elem.warehouse_id }}</header>
-    <section>
-        <div>{{ elem.warehouse_size }}</div>
+<div class="warehouse-page">
+    <div class="warehouse" *ngFor="let elem of warehouses">
         <div>
-            <div>{{ elem.address }}</div>
-            <div>{{ elem.zipcode }}</div>
+            <header>Warehouse #{{ elem.warehouse_id }}</header>
+            <section>
+                <div>Capacity: {{ elem.warehouse_size }} ft<sup>3</sup></div>
+                <div>
+                    <div>{{ elem.address }}</div>
+                    <div>{{ elem.zipcode }}</div>
+                </div>
+            </section>
+            <main></main>
+            <footer>
+                <button pButton class="p-button-danger" (click)="displayModal({type: 'deleteWarehouse', id: elem.warehouse_id})">
+                    <div class="pi pi-trash"></div>Delete
+                </button>
+                <a [routerLink]="[elem.warehouse_id]"><button pButton><div class="pi pi-bars"></div>View</button></a>
+            </footer>
         </div>
-    </section>
-    <footer>  
-        <a [routerLink]="[elem.warehouse_id]"><button>View</button></a>
-    </footer>
+    </div>
+
+    <div class="addWarehouse">
+        <div (click)="displayModal({type: 'warehouseForm'})">
+            <div class="pi pi-plus-circle"></div>
+            <div>Add Warehouse</div>
+        </div>
+    </div>
 </div>
+
+<app-modal *ngIf="showModal.state"
+    [data]="showModal.data"
+    (closeEvent)="displayModal({})"
+    (deleteWarehouseEvent)="deleteWarehouse($event)"
+    (submitWarehouseEvent)="addWarehouse($event)">
+</app-modal>

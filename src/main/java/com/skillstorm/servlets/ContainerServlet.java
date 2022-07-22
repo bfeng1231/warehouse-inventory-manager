@@ -38,7 +38,11 @@ public class ContainerServlet extends HttpServlet{
 			
 			// Try to convert to int and search by id
 			int id = Integer.parseInt(param[1]);
-			List<Container> containers = dao.findByParam(id);
+			
+			Map<String, String[]> params = req.getParameterMap();
+			int wh_id = Integer.parseInt(params.get("id")[0]);
+			
+			List<Container> containers = dao.findByParam(id, wh_id);
 		
 			if (containers == null) {
 				resp.setStatus(404);
@@ -52,7 +56,10 @@ public class ContainerServlet extends HttpServlet{
 			
 			// Got a string instead, search by location
 			String[] param = urlService.extractParamFromURL(req.getPathInfo());
-			List<Container> containers = dao.findByParam(param[1]);
+			Map<String, String[]> params = req.getParameterMap();
+			
+			int id = Integer.parseInt(params.get("id")[0]);
+			List<Container> containers = dao.findByParam(param[1], id);
 			
 			if (containers == null) {
 				resp.setStatus(404);
@@ -65,15 +72,17 @@ public class ContainerServlet extends HttpServlet{
 			
 			try {
 				Map<String, String[]> params = req.getParameterMap();
-				
-				List<Container> containers = dao.findAll(params.get("sort")[0], params.get("order")[0]);
+				int id = Integer.parseInt(params.get("id")[0]);
+
+				List<Container> containers = dao.findAll(id, params.get("sort")[0], params.get("order")[0]);
 				resp.setContentType("application/JSON");
 				resp.getWriter().print(mapper.writeValueAsString(containers));
 				
 			} catch (NullPointerException error) {
 				Map<String, String[]> params = req.getParameterMap();
+				int id = Integer.parseInt(params.get("id")[0]);
 				
-				List<Container> containers = dao.findByItem(params.get("item")[0]);
+				List<Container> containers = dao.findByItem(params.get("item")[0], id);
 				resp.setContentType("application/JSON");
 				resp.getWriter().print(mapper.writeValueAsString(containers));
 			}

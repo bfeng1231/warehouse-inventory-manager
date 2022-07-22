@@ -1,6 +1,8 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContainerApiService } from '../services/container-api.service';
 import { WarehouseInfoService } from '../services/warehouse-info.service';
+import { ActivatedRoute } from '@angular/router';
+import { WarehouseApiService } from '../services/warehouse-api-service';
 
 @Component({
     selector: 'app-container-page',
@@ -13,10 +15,14 @@ export class ContainerPageComponent implements OnInit {
     containers: Array<any> = []
     showModal: any = {state: false, data: {}}
     warehouseData: WarehouseInfoService
+    id: any
+    warehouse: any = {}
+    warehouseService: WarehouseApiService
 
-    constructor(service: ContainerApiService, warehouseData: WarehouseInfoService) { 
+    constructor(service: ContainerApiService, warehouseData: WarehouseInfoService, private route: ActivatedRoute, warehouseService: WarehouseApiService) { 
         this.service = service
         this.warehouseData = warehouseData
+        this.warehouseService = warehouseService
     }
 
     ngOnInit(): void {
@@ -24,7 +30,10 @@ export class ContainerPageComponent implements OnInit {
     }
 
     getData() {
-        this.service.findAll('container_id', 'asc').subscribe(resp => {
+        this.id = this.route.snapshot.paramMap.get('warehouse-id')
+        this.warehouseService.findById(this.id).subscribe(resp => {this.warehouse = resp
+        console.log(resp)})
+        this.service.findAll(this.id,'container_id', 'asc').subscribe(resp => {
             console.log(resp)
             this.containers = resp})
     }
@@ -51,6 +60,7 @@ export class ContainerPageComponent implements OnInit {
     }
 
     addContainer(formData: any) {
+        formData = {...formData, warehouse_id: this.id}
         console.log(formData)
         let allocateSpace = 0
         switch(formData.transport) {
@@ -86,16 +96,28 @@ export class ContainerPageComponent implements OnInit {
              return this.getData()
 
         if (data.type == 'item') {
-            this.service.findByItem(data.input).subscribe(resp => {
+            this.service.findByItem(this.id, data.input).subscribe(resp => {
                 console.log(resp)
                 this.containers = resp
             })
         }
         else {
-            this.service.findByTerm(data.input).subscribe(resp => {
+            this.service.findByTerm(this.id, data.input).subscribe(resp => {
                 console.log(resp)
                 this.containers = resp
             })
         }
+    }
+
+    editWarehouse(data: any) {
+        console.log(data)
+        if (this.warehouseData.currentSpace > data.warehouse_size)
+            return window.alert("Cannot set warehouse size lower than the space it is currently taking up")
+        
+        this.warehouseService.update(data).subscribe(resp => {
+            this.warehouseData.updateTotal()
+            this.showModal = {state: false, data: {}}
+        })
+        
     }
 }

@@ -10,9 +10,11 @@ export class ModalComponent implements OnInit {
     @Input() data: any = ''
     @Output() deleteContainerEvent = new EventEmitter<number>()
     @Output() deleteItemEvent = new EventEmitter<number>()
+    @Output() deleteWarehouseEvent = new EventEmitter<number>()
     @Output() closeEvent = new EventEmitter()
     @Output() sumbitContainerEvent = new EventEmitter<any>()
     @Output() sumbitItemEvent = new EventEmitter<any>()
+    @Output() submitWarehouseEvent = new EventEmitter<number>()
 
     constructor() { }
 
@@ -35,6 +37,9 @@ export class ModalComponent implements OnInit {
             case 'deleteItems':
                 this.deleteItemEvent.emit(data.itemChecklist)
                 return
+            case 'deleteWarehouse':
+                this.deleteWarehouseEvent.emit(data.id)
+                return
             default:
                 return
         }
@@ -47,6 +52,9 @@ export class ModalComponent implements OnInit {
                 return
             case 'itemForm':
                 this.sumbitItemEvent.emit(formData)
+                return
+            case 'warehouseForm':
+                this.submitWarehouseEvent.emit(formData)
                 return
             default:
                 return

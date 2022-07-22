@@ -25,4 +25,18 @@ export class WarehouseApiService {
     getCurrentSpace(id: number): Observable<any> {
         return this.http.get(environment.apiUrl + `warehouses/${id}/total`)
     }
+
+    delete(id: number): Observable<any> {
+        return this.http.delete(environment.apiUrl + "warehouses/" + id)
+    }
+
+    save(data: any): Observable<any> {
+        let body = {...data}
+        return this.http.post(environment.apiUrl + "warehouses/", body)
+    }
+
+    update(data: any): Observable<any> {
+        let body = {...data}
+        return this.http.put(environment.apiUrl + "warehouses/", body)
+    }
 }

@@ -16,7 +16,8 @@ import {CheckboxModule} from 'primeng/checkbox';
 import { ButtonModule } from 'primeng/button';
 import { WarehouseHeaderComponent } from './warehouse-header/warehouse-header.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
-import { WarehousePageComponent } from './warehouse-page/warehouse-page.component'
+import { WarehousePageComponent } from './warehouse-page/warehouse-page.component';
+import { WarehouseFormComponent } from './forms/warehouse-form/warehouse-form.component'
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { WarehousePageComponent } from './warehouse-page/warehouse-page.componen
     ItemFormComponent,
     WarehouseHeaderComponent,
     SearchBarComponent,
-    WarehousePageComponent
+    WarehousePageComponent,
+    WarehouseFormComponent
   ],
   imports: [
     BrowserModule,

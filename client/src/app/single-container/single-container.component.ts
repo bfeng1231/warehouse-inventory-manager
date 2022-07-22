@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ContainerApiService } from '../services/container-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from "@angular/router";
@@ -16,6 +16,7 @@ export class SingleContainerComponent implements OnInit {
     itemService: ItemApiService
     warehouseData: WarehouseInfoService
     id: any
+    wh_id: any
     container: any = {}
     edit: boolean = false
     showModal: any = {state: false, data: {}}
@@ -35,8 +36,8 @@ export class SingleContainerComponent implements OnInit {
 
     getData() {
         this.id = this.route.snapshot.paramMap.get('container-id')
-        console.log(this.route.snapshot.paramMap)
-        this.service.findByTerm(this.id)
+        this.wh_id = this.route.snapshot.paramMap.get('warehouse-id')
+        this.service.findByTerm(this.wh_id, this.id)
             .subscribe({
                 next: resp => {this.container = resp[0]
                 console.log(resp)},
@@ -68,7 +69,7 @@ export class SingleContainerComponent implements OnInit {
                 currentItem = resp
                 newSpace = this.currentSpace - (currentItem.units * currentItem.size)
                 if ((data.size * data.amount) + newSpace > this.container.transport_size) {                                
-                    return window.alert("Unable to add item due to insufficant amount of space")        
+                    return window.alert("Unable to apply changes to item due to insufficant amount of space")        
                 }
                 this.itemService.update(data, this.id)
                     .subscribe({
@@ -111,6 +112,7 @@ export class SingleContainerComponent implements OnInit {
     }
 
     editContainer(data: any): void {
+        data = {...data, warehouse_id: this.wh_id}
         let size = data.transport
         switch (size) {
             case 1:

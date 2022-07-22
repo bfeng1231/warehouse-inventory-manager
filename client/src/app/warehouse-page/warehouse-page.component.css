@@ -1,0 +1,94 @@
+.warehouse-page {
+    display: flex;
+    flex-flow: row wrap;
+    row-gap: 40px;
+    margin-bottom: 50px;
+}
+
+.warehouse {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.warehouse > div {
+    width: 90%;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 8px 5px 5px gray;
+}
+
+header {
+    text-align: center;
+    font-size: 24px;
+    padding: 5px;
+    background-color: slategray;
+    color: white;
+}
+
+section {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(255, 164, 79);
+    font-size: 18px;
+}
+
+section > div {
+    display: flex;
+    padding: 10px;
+}
+
+section > div > div {
+    margin-left: 5px;
+}
+
+main {
+    background-image: url("https://cloudfront-us-east-1.images.arcpublishing.com/pmn/WLILRN2X7NHGPH3IUFUU552SVQ.jpg");
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 300px;
+}
+
+footer {
+    background-color:lightslategray;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 10px 10px;
+}
+
+button {
+    height: 30px;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: black
+}
+
+.addWarehouse {
+    width: 50%;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+}
+
+.addWarehouse > div {
+    width: 90%;
+    background-color: white;
+    border: 2px solid rgb(255, 164, 79);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 8px 5px 5px gray;
+}
+
+.addWarehouse > div:hover {
+    cursor: pointer;
+}
+
+.addWarehouse > div > div {
+    font-size: 48px;
+}
