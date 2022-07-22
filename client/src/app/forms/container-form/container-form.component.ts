@@ -16,6 +16,7 @@ export class ContainerFormComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
+        // Found existing data so we editing a container, populate the fields
         if (this.data.hasOwnProperty("container"))
             this.containerFormData = {
                 transport: this.data.container.transport_id, 

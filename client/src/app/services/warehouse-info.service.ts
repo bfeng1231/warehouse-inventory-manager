@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class WarehouseInfoService {
 
+    // Service used for mantaining the current amount of space of consumed by the containers
+
     currentSpace: number = 0
     totalSpace: number = 0
     recall: boolean

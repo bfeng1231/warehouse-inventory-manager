@@ -2,6 +2,10 @@ package com.skillstorm.models;
 
 import java.util.List;
 
+/**
+ * Class used for taking in an array of ids from the htttp request for the deleteMany methods
+ *
+ */
 public class RequestObj {
 	private List<Integer> ids;
 

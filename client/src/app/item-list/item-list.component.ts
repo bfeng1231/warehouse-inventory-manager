@@ -14,6 +14,7 @@ export class ItemListComponent implements OnInit {
     @Input() id: number = 0
     @Input() edit: boolean = false
     @Input() set item(data: any) {
+        // Checks the item we recieved. If it exists, we edit it. Else we add it
         let index = this.items.findIndex(elem => elem.item_id == data.item_id)
         index != -1 ? this.items[index] = {...data , datetime: Date.now()} : this.items.push({...data, datetime: Date.now()})          
     }
@@ -31,6 +32,7 @@ export class ItemListComponent implements OnInit {
     ngOnInit(): void {
         console.log("Getting items for container", this.id)
         this.getData()
+        // Check if we need to refesh the item list because a change occured
         setInterval(() => {
             if (this.service.recall)
                this.getData()
@@ -45,6 +47,7 @@ export class ItemListComponent implements OnInit {
         })
     }
 
+    // Adds or removes an item for a list of items that are to be deleted
     itemChecklistHandler(id: number): void {
         let index = this.itemChecklist.indexOf(id)
         index == -1 ? this.itemChecklist.push(id) : this.itemChecklist.splice(index, 1)
@@ -56,6 +59,7 @@ export class ItemListComponent implements OnInit {
         this.onClickEvent.emit(data)
     }
 
+    // Determine the sorting method on the items
     sort(data: any) {
         this.sortBy = {...data}
         this.sortState.switchStates(data.sort)

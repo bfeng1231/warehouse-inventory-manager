@@ -54,7 +54,10 @@ public class WarehouseDAOImpl implements WarehouseDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/**
+	 * @return Returns the total amount of space that the containers are taking up in the specific warehouse
+	 */
 	@Override
 	public int getCurrentSpace(int id) {
 		String sql = "SELECT sum(transport_size) FROM container INNER JOIN transport USING(transport_id) WHERE warehouse_id = " + id;

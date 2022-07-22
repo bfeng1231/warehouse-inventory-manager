@@ -15,6 +15,7 @@ export class SearchBarComponent implements OnInit {
     ngOnInit(): void {
     }
 
+    // Outputs the characters being put into the textbox
     searchTerm(value: any) {
         this.search.input = value
         console.log(this.search)

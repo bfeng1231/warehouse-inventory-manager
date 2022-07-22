@@ -13,6 +13,10 @@ import com.skillstorm.models.Item;
 
 public class ItemDAOImpl implements ItemDAO{
 
+	/**
+	 * @param Takes in the container id and the sorting data
+	 * @return  Returns a list of all the items in the specified container
+	 */
 	@Override
 	public List<Item> findAll(int id, String sort, String direction) {
 		String sql = "SELECT * FROM item WHERE container_id = ? ";
@@ -45,6 +49,9 @@ public class ItemDAOImpl implements ItemDAO{
 		return null;
 	}
 
+	/**
+	 * Searches for an item with the specific item id
+	 */
 	@Override
 	public Item findByParam(int id) {
 		String sql = "SELECT * FROM item WHERE item_id = " + id;
@@ -68,6 +75,9 @@ public class ItemDAOImpl implements ItemDAO{
 		return null;
 	}
 
+	/**
+	 * Searches for an item with the specific name
+	 */
 	@Override
 	public Item findByParam(String name) {
 		String sql = "SELECT * FROM item WHERE name = ?";
@@ -218,6 +228,9 @@ public class ItemDAOImpl implements ItemDAO{
 		return false;
 	}
 
+	/**
+	 * @return Returns the total amount of space all the items are taking up inside the container
+	 */
 	@Override
 	public int getTotalSpace(int id) {
 		String sql = "SELECT SUM(size * units) AS total_space FROM item WHERE container_id =" + id;

@@ -30,6 +30,7 @@ export class WarehousePageComponent implements OnInit {
         console.log(this.showModal)
     }
 
+    // Deletes the specified warehouse from the warehouse array
     deleteWarehouse(id: number): void {
         this.service.delete(id).subscribe(resp => console.log(resp))
         let index = this.warehouses.findIndex(elem => elem.warehouse_id == id)
@@ -37,6 +38,7 @@ export class WarehousePageComponent implements OnInit {
         this.showModal = {state: !this.showModal.state, data: {}}
     }
 
+    // Adds the warehouse we created to the array of warehouses
     addWarehouse(data: any) {
         this.service.save(data).subscribe(resp => {
                         console.log(resp)

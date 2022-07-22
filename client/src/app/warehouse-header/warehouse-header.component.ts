@@ -31,7 +31,7 @@ export class WarehouseHeaderComponent implements OnInit {
             this.currentSpace = resp
             this.warehouseData.currentSpace = resp
         })
-
+        // Checks perodically if the warehouse data has been changed. If recall the route and update the inforamtion
         setInterval(() => {
             if (this.warehouseData.recall) {
                 this.service.findById(this.wh_id).subscribe(resp => {

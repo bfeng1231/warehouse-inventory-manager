@@ -30,6 +30,7 @@ export class ContainerPageComponent implements OnInit {
     }
 
     getData() {
+        // Uses ActivatedRoute to get the url data
         this.id = this.route.snapshot.paramMap.get('warehouse-id')
         this.warehouseService.findById(this.id).subscribe(resp => {this.warehouse = resp
         console.log(resp)})
@@ -37,11 +38,6 @@ export class ContainerPageComponent implements OnInit {
             console.log(resp)
             this.containers = resp})
     }
-
-    // updateView(container: any): void {
-    //     this.containers.push(container)
-    //     this.getData()
-    // }
 
     displayModal(data: any): void {
         console.log("Open modal")
@@ -54,6 +50,7 @@ export class ContainerPageComponent implements OnInit {
             console.log(resp) 
             this.warehouseData.updateTotal()          
         })
+        // Removes the deleted container from the array of containers
         let index = this.containers.findIndex(elem => elem.id == id)
         this.containers.splice(index, 1)
         this.showModal = {state: !this.showModal.state, data: {}}
@@ -62,6 +59,7 @@ export class ContainerPageComponent implements OnInit {
     addContainer(formData: any) {
         formData = {...formData, warehouse_id: this.id}
         console.log(formData)
+        // Get the space data from the tranport type
         let allocateSpace = 0
         switch(formData.transport) {
             case 1:
@@ -91,10 +89,11 @@ export class ContainerPageComponent implements OnInit {
     }
 
     searchContainers(data: any) {
-
+        // User deleted search input so we get all containers again
         if (data.input == '')
              return this.getData()
 
+        // Determines the route to use for the search bar
         if (data.type == 'item') {
             this.service.findByItem(this.id, data.input).subscribe(resp => {
                 console.log(resp)

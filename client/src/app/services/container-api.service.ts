@@ -19,14 +19,15 @@ export class ContainerApiService {
         return this.http.get(environment.apiUrl + `containers/?id=${id}&sort=${sort}&order=${order}`)
     }
 
+    // Look for a container that has the inputted location or id
     findByTerm(id: number, term: any): Observable<any> {
         return this.http.get(environment.apiUrl + `containers/${term}?id=${id}`)
     }
 
+    // Look for a container that has the specified item
     findByItem(id: number, term: any): Observable<any> {
         return this.http.get(environment.apiUrl + `containers/?id=${id}&item=${term}`)
     }
-
 
     delete(id: number): Observable<any> {
         return this.http.delete(environment.apiUrl + "containers/" + id)

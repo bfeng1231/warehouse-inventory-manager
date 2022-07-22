@@ -1,5 +1,8 @@
 package com.skillstorm.models;
 
+/**
+ * Class used for sending error messages to the front-end
+ */
 public class Message {
 	
 	private String message;

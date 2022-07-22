@@ -17,6 +17,7 @@ export class WarehouseFormComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
+        // Found existing data so we editing a warehouse, populate the fields
         if (this.data.hasOwnProperty('warehouse')) {
             this.warehouseFormData = {
                 warehouse_id: this.data.warehouse.warehouse_id,
